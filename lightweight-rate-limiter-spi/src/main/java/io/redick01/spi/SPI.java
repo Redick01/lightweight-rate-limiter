@@ -1,0 +1,19 @@
+package io.redick01.spi;
+
+import java.lang.annotation.*;
+
+/**
+ * @author liupenghui
+ *  2021/12/24 3:18 下午
+ */
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface SPI {
+
+    /**
+     * value
+     * @return value
+     */
+    String value() default "";
+}

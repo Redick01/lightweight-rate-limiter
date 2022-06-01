@@ -1,0 +1,12 @@
+server:
+  port: 8103
+spring:
+  ratelimiter:
+    redis-config:
+      url: 127.0.0.1
+      database: 0
+    rate-limiter-configs:
+      - algorithmName: token_bucket_rate_limiter
+        rateLimiterKey : key1
+        capacity: 1000
+        rate: 200

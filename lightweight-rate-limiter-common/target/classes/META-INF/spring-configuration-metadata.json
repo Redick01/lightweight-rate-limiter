@@ -1,0 +1,103 @@
+{
+  "groups": [
+    {
+      "name": "spring.ratelimiter",
+      "type": "io.redick01.ratelimiter.common.config.RtProperties",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
+    },
+    {
+      "name": "spring.ratelimiter.redis-config",
+      "type": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
+    },
+    {
+      "name": "spring.ratelimiter.zookeeper",
+      "type": "io.redick01.ratelimiter.common.config.RtProperties$Zookeeper",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.ratelimiter.rate-limiter-configs",
+      "type": "java.util.List<io.redick01.ratelimiter.common.config.RateLimiterConfigProperties>",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
+    },
+    {
+      "name": "spring.ratelimiter.redis-config.database",
+      "type": "java.lang.Integer",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.ratelimiter.redis-config.master",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig"
+    },
+    {
+      "name": "spring.ratelimiter.redis-config.max-active",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
+      "defaultValue": 8
+    },
+    {
+      "name": "spring.ratelimiter.redis-config.max-idle",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of \"idle\" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
+      "defaultValue": 8
+    },
+    {
+      "name": "spring.ratelimiter.redis-config.max-wait",
+      "type": "java.time.Duration",
+      "description": "Maximum amount of time a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
+      "defaultValue": "-1ms"
+    },
+    {
+      "name": "spring.ratelimiter.redis-config.min-idle",
+      "type": "java.lang.Integer",
+      "description": "Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if it is positive.",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.ratelimiter.redis-config.password",
+      "type": "java.lang.String",
+      "description": "the password.",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig"
+    },
+    {
+      "name": "spring.ratelimiter.redis-config.url",
+      "type": "java.lang.String",
+      "description": "If it is cluster or sentinel mode, separated with `;`.",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig"
+    },
+    {
+      "name": "spring.ratelimiter.zookeeper.config-key",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Zookeeper"
+    },
+    {
+      "name": "spring.ratelimiter.zookeeper.config-version",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Zookeeper"
+    },
+    {
+      "name": "spring.ratelimiter.zookeeper.node",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Zookeeper"
+    },
+    {
+      "name": "spring.ratelimiter.zookeeper.root-node",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Zookeeper"
+    },
+    {
+      "name": "spring.ratelimiter.zookeeper.zk-connect-str",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Zookeeper"
+    }
+  ],
+  "hints": []
+}
