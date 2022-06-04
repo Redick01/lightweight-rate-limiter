@@ -3,6 +3,7 @@ package io.redick01.ratelimiter;
 import io.redick01.ratelimiter.algorithm.RateLimiterAlgorithm;
 import io.redick01.ratelimiter.common.config.RateLimiterConfigProperties;
 import io.redick01.ratelimiter.common.enums.Singleton;
+import io.redick01.ratelimiter.parser.script.ScriptParser;
 import io.redick01.spi.ExtensionLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,12 +20,16 @@ import java.util.List;
 public class RateLimiterHandler {
 
 
-    public boolean isAllowed(final RateLimiterConfigProperties rateLimiterConfig) {
+    public boolean isAllowed(final RateLimiterConfigProperties rateLimiterConfig, final Object[] args) {
         RateLimiterAlgorithm<?> rateLimiterAlgorithm = ExtensionLoader
                 .getExtensionLoader(RateLimiterAlgorithm.class)
                 .getJoin(rateLimiterConfig.getAlgorithmName());
         RedisScript<?> redisScript = rateLimiterAlgorithm.getScript();
-        List<String> keys = rateLimiterAlgorithm.getKeys(rateLimiterConfig.getRateLimiterKey());
+        ScriptParser parser = ExtensionLoader
+                .getExtensionLoader(ScriptParser.class)
+                .getJoin(rateLimiterConfig.getSpelParserType());
+        String realKey = parser.getExpressionValue(rateLimiterConfig.getRateLimiterKey(), args);
+        List<String> keys = rateLimiterAlgorithm.getKeys(realKey);
         try {
             List<Long> result = (List<Long>) Singleton.INST.get(RedisTemplate.class).execute(redisScript,
                     keys,

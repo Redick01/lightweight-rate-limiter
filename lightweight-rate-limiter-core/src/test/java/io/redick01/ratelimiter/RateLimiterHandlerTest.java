@@ -43,6 +43,6 @@ public class RateLimiterHandlerTest {
 
     @Test
     public void isAllowed() {
-        Assertions.assertTrue(rateLimiterHandler.isAllowed(rtProperties.getRateLimiterConfigs().get(0)));
+        Assertions.assertTrue(rateLimiterHandler.isAllowed(rtProperties.getRateLimiterConfigs().get(0), null));
     }
 }

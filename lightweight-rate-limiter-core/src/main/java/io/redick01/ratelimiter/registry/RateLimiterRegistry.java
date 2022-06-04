@@ -32,4 +32,8 @@ public class RateLimiterRegistry implements ApplicationRunner {
             RATE_LIMITER_REGISTRY.putIfAbsent(rateLimiterConfig.getRateLimiterKey(), rateLimiterConfig);
         });
     }
+
+    public static void refresh(RtProperties rtProperties) {
+
+    }
 }

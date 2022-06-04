@@ -13,6 +13,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>ratelimiter-spring-boot-starter-common</module>
+        <module>ratelimiter-spring-boot-starter-zookeeper</module>
     </modules>
 
     <packaging>pom</packaging>

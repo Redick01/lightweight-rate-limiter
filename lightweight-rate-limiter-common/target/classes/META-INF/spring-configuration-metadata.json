@@ -18,6 +18,12 @@
   ],
   "properties": [
     {
+      "name": "spring.ratelimiter.config-type",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties",
+      "defaultValue": "yml"
+    },
+    {
       "name": "spring.ratelimiter.rate-limiter-configs",
       "type": "java.util.List<io.redick01.ratelimiter.common.config.RateLimiterConfigProperties>",
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"

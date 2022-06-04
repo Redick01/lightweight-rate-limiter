@@ -15,6 +15,8 @@ import java.util.List;
 @ConfigurationProperties(prefix = "spring.ratelimiter")
 public class RtProperties {
 
+    private String configType = "yml";
+
     private Zookeeper zookeeper;
 
     private List<RateLimiterConfigProperties> rateLimiterConfigs;

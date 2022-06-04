@@ -5,7 +5,6 @@ import io.redick01.ratelimiter.registry.RateLimiterRegistry;
 import io.redick01.ratelimiter.annotation.RateLimiter;
 import io.redick01.ratelimiter.callback.RateLimitCallback;
 import io.redick01.ratelimiter.common.config.RateLimiterConfigProperties;
-import io.redick01.ratelimiter.common.config.RtProperties;
 import io.redick01.ratelimiter.common.enums.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -31,8 +30,6 @@ public class RateLimiterInterceptor {
     @Resource
     private RateLimiterHandler rateLimiterHandler;
 
-    @Resource
-    private RtProperties rtProperties;
 
     @Pointcut("@annotation(io.redick01.ratelimiter.annotation.RateLimiter)")
     public void pointcut() {}
@@ -46,10 +43,12 @@ public class RateLimiterInterceptor {
                 if (StringUtils.isNotBlank(rateLimiterKey)) {
                     RateLimiterConfigProperties rateLimiterConfig = RateLimiterRegistry.RATE_LIMITER_REGISTRY.get(rateLimiterKey);
                     if (Objects.nonNull(rateLimiterConfig)) {
-                        if (!rateLimiterHandler.isAllowed(rateLimiterConfig)) {
+                        if (!rateLimiterHandler.isAllowed(rateLimiterConfig, joinPoint.getArgs())) {
                             Class<?> clazz = method.getAnnotation(RateLimiter.class).clazz();
                             return rateLimitResponse(clazz, method, joinPoint.getArgs(), rateLimiterKey);
                         }
+                    } else {
+                        log.debug("RateLimiterConfigProperties config rateLimiterKey is null");
                     }
                 }
             }

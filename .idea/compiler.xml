@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="lightweight-rate-limiter-spi" />
         <module name="ratelimiter-spring-boot-starter-common" />
+        <module name="ratelimiter-spring-boot-starter-zookeeper" />
         <module name="lightweight-rate-limiter-common" />
         <module name="springboot-example" />
         <module name="lightweight-rate-limiter-core" />
