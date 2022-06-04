@@ -1,2 +1,2 @@
-/Users/penghuiliu/geek_learn/lightweight-rate-limiter/starter/starter-common/src/main/java/io/redick01/ratelimiter/configure/BaseAutoConfiguration.java
-/Users/penghuiliu/geek_learn/lightweight-rate-limiter/starter/starter-common/src/main/java/io/redick01/ratelimiter/aop/RateLimiterInterceptor.java
+/Users/penghuiliu/geek_learn/lightweight-rate-limiter/lightweight-rate-limiter-starter/ratelimiter-spring-boot-starter-common/src/main/java/io/redick01/ratelimiter/configure/BaseAutoConfiguration.java
+/Users/penghuiliu/geek_learn/lightweight-rate-limiter/lightweight-rate-limiter-starter/ratelimiter-spring-boot-starter-common/src/main/java/io/redick01/ratelimiter/aop/RateLimiterInterceptor.java

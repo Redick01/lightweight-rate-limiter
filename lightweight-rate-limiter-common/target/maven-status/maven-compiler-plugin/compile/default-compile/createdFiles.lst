@@ -1,7 +1,9 @@
 io/redick01/ratelimiter/common/enums/Singleton.class
 META-INF/spring-configuration-metadata.json
 io/redick01/ratelimiter/common/enums/RedisModeEnum.class
+io/redick01/ratelimiter/common/enums/ConfigFileTypeEnum.class
 io/redick01/ratelimiter/common/config/RtProperties$RedisConfig.class
+io/redick01/ratelimiter/common/util/PropertiesBinder.class
 io/redick01/ratelimiter/common/config/RtProperties.class
 io/redick01/ratelimiter/common/config/RtProperties$Zookeeper.class
 io/redick01/ratelimiter/common/constant/Constant.class

@@ -1,2 +1,2 @@
-/Users/penghuiliu/geek_learn/lightweight-rate-limiter/core/src/test/java/io/redick01/ratelimiter/redis/RedisTemplateInitializationTest.java
-/Users/penghuiliu/geek_learn/lightweight-rate-limiter/core/src/test/java/io/redick01/ratelimiter/RateLimiterHandlerTest.java
+/Users/penghuiliu/geek_learn/lightweight-rate-limiter/lightweight-rate-limiter-core/src/test/java/io/redick01/ratelimiter/redis/RedisTemplateInitializationTest.java
+/Users/penghuiliu/geek_learn/lightweight-rate-limiter/lightweight-rate-limiter-core/src/test/java/io/redick01/ratelimiter/RateLimiterHandlerTest.java

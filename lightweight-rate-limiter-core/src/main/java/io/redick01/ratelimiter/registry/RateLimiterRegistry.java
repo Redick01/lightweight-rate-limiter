@@ -26,14 +26,15 @@ public class RateLimiterRegistry implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.info("init RateLimiterRegistry !");
-        List<RateLimiterConfigProperties> rateLimiterConfigs = rtProperties.getRateLimiterConfigs();
-        rateLimiterConfigs.parallelStream().forEach(rateLimiterConfig -> {
-            RATE_LIMITER_REGISTRY.putIfAbsent(rateLimiterConfig.getRateLimiterKey(), rateLimiterConfig);
-        });
+        refresh(rtProperties);
     }
 
     public static void refresh(RtProperties rtProperties) {
-
+        List<RateLimiterConfigProperties> rateLimiterConfigs = rtProperties.getRateLimiterConfigs();
+        rateLimiterConfigs.parallelStream().forEach(rateLimiterConfig -> {
+            log.info("refresh rate limiter key : {}", rateLimiterConfig.toString());
+            RATE_LIMITER_REGISTRY.putIfAbsent(rateLimiterConfig.getRateLimiterKey(), rateLimiterConfig);
+        });
+        log.info("refresh rate limiter registry completed!");
     }
 }

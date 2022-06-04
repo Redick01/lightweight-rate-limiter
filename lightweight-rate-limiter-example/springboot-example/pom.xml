@@ -18,12 +18,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>io.redick01.ratelimiter</groupId>
+            <artifactId>ratelimiter-spring-boot-starter-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.redick01.ratelimiter</groupId>
-            <artifactId>ratelimiter-spring-boot-starter-common</artifactId>
+            <artifactId>common-example</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

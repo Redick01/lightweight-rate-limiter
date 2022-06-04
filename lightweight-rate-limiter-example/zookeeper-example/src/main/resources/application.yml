@@ -1,0 +1,11 @@
+server:
+  port: 8104
+
+spring:
+  ratelimiter:
+    zookeeper:
+      zk-connect-str: 127.0.0.1:2181
+      root-node: /configserver/userproject
+      node: ratelimit-group
+      config-version: 1.0.0
+    config-type: properties

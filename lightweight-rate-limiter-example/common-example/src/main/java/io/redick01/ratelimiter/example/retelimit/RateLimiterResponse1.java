@@ -1,4 +1,4 @@
-package io.redick01.ratelimiter.example.ratelimit;
+package io.redick01.ratelimiter.example.retelimit;
 
 import io.redick01.ratelimiter.callback.RateLimitCallback;
 import io.redick01.ratelimiter.example.dto.Response;
