@@ -44,6 +44,7 @@ public class RateLimiterInterceptor {
                     RateLimiterConfigProperties rateLimiterConfig = RateLimiterRegistry.RATE_LIMITER_REGISTRY.get(rateLimiterKey);
                     if (Objects.nonNull(rateLimiterConfig)) {
                         if (!rateLimiterHandler.isAllowed(rateLimiterConfig, joinPoint.getArgs())) {
+                            log.info("touch off rate limit !");
                             Class<?> clazz = method.getAnnotation(RateLimiter.class).clazz();
                             return rateLimitResponse(clazz, method, joinPoint.getArgs(), rateLimiterKey);
                         }

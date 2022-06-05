@@ -33,7 +33,7 @@ public class RateLimiterRegistry implements ApplicationRunner {
         List<RateLimiterConfigProperties> rateLimiterConfigs = rtProperties.getRateLimiterConfigs();
         rateLimiterConfigs.parallelStream().forEach(rateLimiterConfig -> {
             log.info("refresh rate limiter key : {}", rateLimiterConfig.toString());
-            RATE_LIMITER_REGISTRY.putIfAbsent(rateLimiterConfig.getRateLimiterKey(), rateLimiterConfig);
+            RATE_LIMITER_REGISTRY.put(rateLimiterConfig.getRateLimiterKey(), rateLimiterConfig);
         });
         log.info("refresh rate limiter registry completed!");
     }

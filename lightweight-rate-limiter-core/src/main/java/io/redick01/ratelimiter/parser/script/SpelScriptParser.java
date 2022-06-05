@@ -34,6 +34,9 @@ public class SpelScriptParser implements ScriptParser {
 
     @Override
     public String getExpressionValue(String expressKey, Object[] arguments) {
+        if (!isScript(expressKey)) {
+            return expressKey;
+        }
         SpelExpressionParser parser = Singleton.INST.get(SpelExpressionParser.class);
         if (Objects.isNull(parser)) {
             Singleton.INST.single(SpelExpressionParser.class, new SpelExpressionParser());
