@@ -1,0 +1,14 @@
+server:
+  port: 8105
+
+spring:
+  application:
+    name: cloud-zookeeper-example
+  cloud:
+    zookeeper:
+      connect-string: 127.0.0.1:2181
+      config:
+        root: /configserver/userproject/1.0.0
+      enabled: true
+  profiles:
+    active: dev

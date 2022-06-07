@@ -15,6 +15,7 @@
         <module>springboot-example</module>
         <module>common-example</module>
         <module>zookeeper-example</module>
+        <module>cloud-zookeeper-example</module>
     </modules>
 
     <properties>

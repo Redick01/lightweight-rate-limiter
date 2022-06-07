@@ -14,21 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
-public class ZookeeperTestController {
+public class CloudZookeeperTestController {
 
-
-    @PostMapping("/zk-rate/test1")
+    @PostMapping("/cloud-zk-rate/test1")
     @RateLimiter(key = "zk-rate-test1", clazz = RateLimiterResponse1.class)
     public Response<String> test1(@RequestBody Request request) {
         log.info("请求参数是:{}", request.toString());
         return new Response<>("0000", "成功", "success");
     }
 
-    @PostMapping("/zk-rate/test2")
+    @PostMapping("/cloud-zk-rate/test2")
     @RateLimiter(key = "'/zk-rate/test2:' + #args[0].userId", clazz = RateLimiterResponse1.class)
     public Response<String> test2(@RequestBody Request request) {
         log.info("请求参数是:{}", request.toString());
         return new Response<>("0000", "成功", "success");
     }
-
 }

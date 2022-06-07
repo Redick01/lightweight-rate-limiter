@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ratelimiter-spring-boot-starter-cloud-zookeeper" />
+        <module name="cloud-zookeeper-example" />
         <module name="ratelimiter-spring-boot-starter-zookeeper" />
         <module name="ratelimiter-spring-boot-starter-cloud-consul" />
         <module name="zookeeper-example" />

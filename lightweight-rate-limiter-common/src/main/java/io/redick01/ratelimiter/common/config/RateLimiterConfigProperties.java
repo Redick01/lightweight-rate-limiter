@@ -13,7 +13,7 @@ public class RateLimiterConfigProperties {
     /**
      * default spel
      */
-    private String spelParserType = "spel";
+    private String expressionType = "spel";
 
     private String rateLimiterKey;
 

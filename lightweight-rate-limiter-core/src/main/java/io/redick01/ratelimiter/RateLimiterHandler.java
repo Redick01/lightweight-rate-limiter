@@ -27,7 +27,7 @@ public class RateLimiterHandler {
         RedisScript<?> redisScript = rateLimiterAlgorithm.getScript();
         ScriptParser parser = ExtensionLoader
                 .getExtensionLoader(ScriptParser.class)
-                .getJoin(rateLimiterConfig.getSpelParserType());
+                .getJoin(rateLimiterConfig.getExpressionType());
         String realKey = parser.getExpressionValue(rateLimiterConfig.getRateLimiterKey(), args);
         List<String> keys = rateLimiterAlgorithm.getKeys(realKey);
         try {
