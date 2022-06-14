@@ -9,3 +9,5 @@ spring:
       node: ratelimit-group
       config-version: 1.0.0
     config-type: properties
+  application:
+    name: zookeeper-example

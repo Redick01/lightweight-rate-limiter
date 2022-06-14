@@ -3,8 +3,11 @@ package io.redick01.ratelimiter.refresh;
 import cn.hutool.core.map.MapUtil;
 import io.redick01.ratelimiter.common.config.RtProperties;
 import io.redick01.ratelimiter.common.enums.ConfigFileTypeEnum;
+import io.redick01.ratelimiter.common.enums.Singleton;
 import io.redick01.ratelimiter.common.util.PropertiesBinder;
+import io.redick01.ratelimiter.parser.config.ConfigParser;
 import io.redick01.ratelimiter.registry.RateLimiterRegistry;
+import io.redick01.spi.ExtensionLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,7 +26,14 @@ public abstract class AbstractRefresher implements Refresher {
 
     @Override
     public void refresh(String content, ConfigFileTypeEnum fileType) {
-
+        try {
+            ConfigParser configParser = ExtensionLoader.getExtensionLoader(ConfigParser.class).getJoin(fileType.getValue());
+            Map<Object, Object> properties = configParser.doParse(content);
+            doRefresh(properties);
+        } catch (Exception e) {
+            log.error("parse config content Exception");
+            throw new RuntimeException(e);
+        }
     }
 
     protected void doRefresh(Map<Object, Object> properties) {

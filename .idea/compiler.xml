@@ -7,17 +7,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ratelimiter-spring-boot-starter-cloud-zookeeper" />
-        <module name="cloud-zookeeper-example" />
         <module name="ratelimiter-spring-boot-starter-zookeeper" />
         <module name="ratelimiter-spring-boot-starter-cloud-consul" />
         <module name="zookeeper-example" />
-        <module name="lightweight-rate-limiter-core" />
         <module name="lightweight-rate-limiter-spi" />
         <module name="ratelimiter-spring-boot-starter-common" />
-        <module name="common-example" />
         <module name="lightweight-rate-limiter-common" />
         <module name="springboot-example" />
+        <module name="nacos-example" />
+        <module name="ratelimiter-spring-boot-starter-cloud-zookeeper" />
+        <module name="cloud-zookeeper-example" />
+        <module name="ratelimiter-spring-boot-starter-nacos" />
+        <module name="lightweight-rate-limiter-core" />
+        <module name="common-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

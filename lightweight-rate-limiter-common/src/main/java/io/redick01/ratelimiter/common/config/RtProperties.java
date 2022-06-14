@@ -19,6 +19,8 @@ public class RtProperties {
 
     private Zookeeper zookeeper;
 
+    private Nacos nacos;
+
     private List<RateLimiterConfigProperties> rateLimiterConfigs;
 
     private RedisConfig redisConfig;
@@ -36,6 +38,14 @@ public class RtProperties {
         private String node;
 
         private String configKey;
+    }
+
+    @Data
+    public static class Nacos {
+
+        private String dataId;
+
+        private String group;
     }
 
     @Data

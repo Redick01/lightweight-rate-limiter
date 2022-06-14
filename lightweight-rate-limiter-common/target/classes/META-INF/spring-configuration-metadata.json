@@ -6,6 +6,11 @@
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
     },
     {
+      "name": "spring.ratelimiter.nacos",
+      "type": "io.redick01.ratelimiter.common.config.RtProperties$Nacos",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
+    },
+    {
       "name": "spring.ratelimiter.redis-config",
       "type": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
@@ -22,6 +27,16 @@
       "type": "java.lang.String",
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties",
       "defaultValue": "yml"
+    },
+    {
+      "name": "spring.ratelimiter.nacos.data-id",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Nacos"
+    },
+    {
+      "name": "spring.ratelimiter.nacos.group",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Nacos"
     },
     {
       "name": "spring.ratelimiter.rate-limiter-configs",
