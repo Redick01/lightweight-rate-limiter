@@ -23,7 +23,7 @@ public class NacosUtil {
             }
             String appName = environment.getProperty("spring.application.name");
             appName = StringUtils.isNoneBlank(appName) ? appName : "application";
-            dataId = appName + profiles[0] + configFileTypeEnum.getValue();
+            dataId = appName + "-" + profiles[0] + "." + configFileTypeEnum.getValue();
         }
 
         return dataId;

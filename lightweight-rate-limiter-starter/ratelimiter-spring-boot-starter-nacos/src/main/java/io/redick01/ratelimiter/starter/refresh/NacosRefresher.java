@@ -28,14 +28,15 @@ public class NacosRefresher extends AbstractRefresher implements InitializingBea
 
     private ConfigFileTypeEnum configFileType;
 
+    @NacosInjected
+    private ConfigService configService;
+
     @Resource
     private RtProperties rtProperties;
 
     @Resource
     private Environment environment;
 
-    @NacosInjected
-    private ConfigService configService;
 
     @Override
     public void afterPropertiesSet() throws Exception {
