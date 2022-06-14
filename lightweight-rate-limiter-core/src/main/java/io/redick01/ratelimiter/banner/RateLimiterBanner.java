@@ -15,7 +15,8 @@ public class RateLimiterBanner implements InitializingBean {
 
     private static final String LIMITER = " :: Limiter :: ";
 
-    private static final String BANNER = "   __ _           _ _            \n" +
+    private static final String BANNER = "" +
+            "   __ _           _ _            \n" +
             "  / /(_)_ __ ___ (_) |_ ___ _ __ \n" +
             " / / | | '_ ` _ \\| | __/ _ \\ '__|\n" +
             "/ /__| | | | | | | | ||  __/ |   \n" +
