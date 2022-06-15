@@ -17,6 +17,8 @@
         <module>zookeeper-example</module>
         <module>cloud-zookeeper-example</module>
         <module>nacos-example</module>
+        <module>cloud-nacos-example</module>
+        <module>apollo-example</module>
     </modules>
 
     <properties>

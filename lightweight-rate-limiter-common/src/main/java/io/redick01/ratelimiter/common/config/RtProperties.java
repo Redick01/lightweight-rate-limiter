@@ -21,6 +21,8 @@ public class RtProperties {
 
     private Nacos nacos;
 
+    private Apollo apollo;
+
     private List<RateLimiterConfigProperties> rateLimiterConfigs;
 
     private RedisConfig redisConfig;
@@ -46,6 +48,12 @@ public class RtProperties {
         private String dataId;
 
         private String group;
+    }
+
+    @Data
+    public static class Apollo {
+
+        private String namespace;
     }
 
     @Data

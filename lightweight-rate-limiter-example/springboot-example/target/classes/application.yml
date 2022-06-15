@@ -10,9 +10,9 @@ spring:
         rateLimiterKey : key1
         capacity: 1000
         rate: 200
-        spelParserType: spel
+        expressionType: spel
       - algorithmName: token_bucket_rate_limiter
         rateLimiterKey: "'/Rate/spelTest:' + #args[0].userId"
         capacity: 1000
         rate: 200
-        spelParserType: spel
+        expressionType: spel

@@ -17,6 +17,8 @@
         <module>ratelimiter-spring-boot-starter-cloud-zookeeper</module>
         <module>ratelimiter-spring-boot-starter-cloud-consul</module>
         <module>ratelimiter-spring-boot-starter-nacos</module>
+        <module>ratelimiter-spring-boot-starter-cloud-nacos</module>
+        <module>ratelimiter-spring-boot-starter-apollo</module>
     </modules>
 
     <packaging>pom</packaging>

@@ -1,0 +1,19 @@
+server:
+  port: 8108
+
+apollo:
+  bootstrap:
+    namespaces: rate-limiter.yml
+    enabled: true
+  meta: http://127.0.0.1:8080
+  config-service: http://127.0.0.1:8080
+
+app:
+  id: apollo-example
+
+spring:
+  application:
+    name: apollo-example
+  ratelimiter:
+    apollo:
+      namespace: rate-limiter.yml

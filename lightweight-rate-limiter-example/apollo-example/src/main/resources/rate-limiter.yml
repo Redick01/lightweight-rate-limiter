@@ -1,0 +1,17 @@
+# apollo配置示例
+spring:
+  ratelimiter:
+    redis-config:
+      url: 127.0.0.1
+      database: 0
+    rate-limiter-configs:
+      - algorithmName: token_bucket_rate_limiter
+        rateLimiterKey : apollo-rate-test1
+        capacity: 1000
+        rate: 10
+        expressionType: spel
+      - algorithmName: sliding_window_rate_limiter
+        rateLimiterKey: "'/apollo-rate/test2:' + #args[0].userId"
+        capacity: 1000
+        rate: 200
+        expressionType: spel

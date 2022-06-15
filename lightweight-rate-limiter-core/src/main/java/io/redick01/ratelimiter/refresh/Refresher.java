@@ -12,5 +12,5 @@ public interface Refresher {
      * @param content config
      * @param fileType config file type
      */
-    void refresh(String content, ConfigFileTypeEnum fileType);
+    void refresh(final String content, final ConfigFileTypeEnum fileType);
 }

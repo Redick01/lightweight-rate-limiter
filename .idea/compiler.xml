@@ -12,11 +12,15 @@
         <module name="zookeeper-example" />
         <module name="lightweight-rate-limiter-spi" />
         <module name="ratelimiter-spring-boot-starter-common" />
+        <module name="cloud-nacos-example" />
+        <module name="ratelimiter-spring-boot-starter-apollo" />
         <module name="lightweight-rate-limiter-common" />
         <module name="springboot-example" />
         <module name="nacos-example" />
+        <module name="apollo-example" />
         <module name="ratelimiter-spring-boot-starter-cloud-zookeeper" />
         <module name="cloud-zookeeper-example" />
+        <module name="ratelimiter-spring-boot-starter-cloud-nacos" />
         <module name="ratelimiter-spring-boot-starter-nacos" />
         <module name="lightweight-rate-limiter-core" />
         <module name="common-example" />

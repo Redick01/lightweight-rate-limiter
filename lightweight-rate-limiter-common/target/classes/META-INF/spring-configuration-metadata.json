@@ -6,6 +6,11 @@
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
     },
     {
+      "name": "spring.ratelimiter.apollo",
+      "type": "io.redick01.ratelimiter.common.config.RtProperties$Apollo",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
+    },
+    {
       "name": "spring.ratelimiter.nacos",
       "type": "io.redick01.ratelimiter.common.config.RtProperties$Nacos",
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
@@ -22,6 +27,11 @@
     }
   ],
   "properties": [
+    {
+      "name": "spring.ratelimiter.apollo.namespace",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Apollo"
+    },
     {
       "name": "spring.ratelimiter.config-type",
       "type": "java.lang.String",

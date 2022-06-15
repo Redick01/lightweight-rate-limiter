@@ -3,13 +3,11 @@ package io.redick01.ratelimiter.refresh;
 import cn.hutool.core.map.MapUtil;
 import io.redick01.ratelimiter.common.config.RtProperties;
 import io.redick01.ratelimiter.common.enums.ConfigFileTypeEnum;
-import io.redick01.ratelimiter.common.enums.Singleton;
 import io.redick01.ratelimiter.common.util.PropertiesBinder;
 import io.redick01.ratelimiter.parser.config.ConfigParser;
 import io.redick01.ratelimiter.registry.RateLimiterRegistry;
 import io.redick01.spi.ExtensionLoader;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -25,7 +23,7 @@ public abstract class AbstractRefresher implements Refresher {
     private RtProperties rtProperties;
 
     @Override
-    public void refresh(String content, ConfigFileTypeEnum fileType) {
+    public void refresh(final String content, final ConfigFileTypeEnum fileType) {
         try {
             ConfigParser configParser = ExtensionLoader.getExtensionLoader(ConfigParser.class).getJoin(fileType.getValue());
             Map<Object, Object> properties = configParser.doParse(content);
@@ -36,9 +34,16 @@ public abstract class AbstractRefresher implements Refresher {
         }
     }
 
-    protected void doRefresh(Map<Object, Object> properties) {
+    public void doRefresh(final RtProperties rtProperties) {
+        if (Objects.isNull(rtProperties)) {
+            log.error("config properties is empty, rate limiter refresh failed.");
+        }
+        RateLimiterRegistry.refresh(rtProperties);
+    }
+
+    protected void doRefresh(final Map<Object, Object> properties) {
         if (MapUtil.isEmpty(properties)) {
-            log.warn("DynamicTp refresh, empty properties.");
+            log.error("config properties is empty, rate limiter refresh failed.");
             return;
         }
         PropertiesBinder.bindDtpProperties(properties, rtProperties);

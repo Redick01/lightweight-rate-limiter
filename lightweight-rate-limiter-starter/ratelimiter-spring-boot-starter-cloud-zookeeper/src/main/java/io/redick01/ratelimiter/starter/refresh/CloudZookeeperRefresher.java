@@ -2,7 +2,6 @@ package io.redick01.ratelimiter.starter.refresh;
 
 import io.redick01.ratelimiter.common.config.RtProperties;
 import io.redick01.ratelimiter.refresh.AbstractRefresher;
-import io.redick01.ratelimiter.registry.RateLimiterRegistry;
 import org.springframework.cloud.context.scope.refresh.RefreshScopeRefreshedEvent;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.SmartApplicationListener;
@@ -26,7 +25,7 @@ public class CloudZookeeperRefresher extends AbstractRefresher implements SmartA
     @Override
     public void onApplicationEvent(@NonNull ApplicationEvent event) {
         if (event instanceof RefreshScopeRefreshedEvent) {
-            RateLimiterRegistry.refresh(rtProperties);
+            doRefresh(rtProperties);
         }
     }
 }
