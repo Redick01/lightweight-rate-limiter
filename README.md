@@ -7,7 +7,7 @@
 
 - 支持令牌桶、漏桶、滑动窗口限流算法
 
-- 支持Zookeeper、Consul配置中心配置限流指标
+- 支持Zookeeper、Naco、Apollo、Consul配置中心配置限流指标
 
 - 支持Spel表达式，能够实现多维度限流
 
@@ -246,6 +246,246 @@ public class ZookeeperTestController {
         return new Response<>("0000", "成功", "success");
     }
 }
+```
+
+### Zookeeper配置中心的Spring Cloud应用接入
+
+可参考lightweight-rate-limiter-example/cloud-zookeeper-example工程
+
+- pom依赖引用
+
+```xml
+<dependency>
+    <groupId>io.redick01.ratelimiter</groupId>
+    <artifactId>ratelimiter-spring-boot-starter-cloud-zookeeper</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+- bootstrap.yml配置
+
+```yaml
+server:
+  port: 8105
+
+spring:
+  application:
+    name: cloud-zookeeper-example
+  cloud:
+    zookeeper:
+      connect-string: 127.0.0.1:2181
+      config:
+        root: /configserver/userproject/1.0.0
+      enabled: true
+  profiles:
+    active: dev
+```
+
+- Zookeeper配置中心配置文件cloud-zookeeper-example,dev.properties配置内容：
+
+```properties
+# Zookeeper配置示例
+# Export from zookeeper configuration group: [/configserver/userproject] - [1.0.0] - [ratelimit-group].
+
+spring.ratelimiter.config-type=properties
+# 限流算法名
+spring.ratelimiter.rate-limiter-configs[0].algorithmName=sliding_window_rate_limiter
+# 容量
+spring.ratelimiter.rate-limiter-configs[0].capacity=200
+spring.ratelimiter.rate-limiter-configs[0].expressionType=spel
+# 令牌生成速率
+spring.ratelimiter.rate-limiter-configs[0].rate=200
+# 限流key
+spring.ratelimiter.rate-limiter-configs[0].rateLimiterKey=zk-rate-test1
+spring.ratelimiter.rate-limiter-configs[1].algorithmName=token_bucket_rate_limiter
+spring.ratelimiter.rate-limiter-configs[1].capacity=1000
+spring.ratelimiter.rate-limiter-configs[1].expressionType=spel
+spring.ratelimiter.rate-limiter-configs[1].rate=300
+spring.ratelimiter.rate-limiter-configs[1].rateLimiterKey='/zk-rate/test2:' + #args[0].userId
+# redis库编号
+spring.ratelimiter.redis-config.database=0
+# redis地址
+spring.ratelimiter.redis-config.url=127.0.0.1
+```
+
+### Nacos配置中心的Spring Boot应用接入
+
+可参考lightweight-rate-limiter-example/nacos-example工程
+
+- pom依赖引用
+
+```xml
+<dependency>
+    <groupId>io.redick01.ratelimiter</groupId>
+    <artifactId>ratelimiter-spring-boot-starter-nacos</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+- application.yml配置
+
+```yaml
+server:
+  port: 8106
+
+spring:
+  application:
+    name: nacos-example
+  profiles:
+    active: dev
+
+nacos:
+  config:
+    server-addr: 127.0.0.1:8848
+    type: yaml
+    data-id: nacos-example-dev.yml
+    auto-refresh: true
+    group: DEFAULT_GROUP
+    bootstrap:
+      enable: true
+      log-enable: true
+```
+
+- Nacos配置中心配置文件nacos-example-dev.yml配置内容：
+
+```yaml
+# nacos配置示例
+spring:
+  ratelimiter:
+    redis-config:
+      url: 127.0.0.1
+      database: 0
+    rate-limiter-configs:
+      - algorithmName: token_bucket_rate_limiter
+        rateLimiterKey : nacos-rate-test1
+        capacity: 100
+        rate: 10
+        expressionType: spel
+      - algorithmName: sliding_window_rate_limiter
+        rateLimiterKey: "'/nacos-rate/test2:' + #args[0].userId"
+        capacity: 1000
+        rate: 200
+        expressionType: spel
+```
+
+### Nacos配置中心的Spring Cloud应用接入
+
+可参考lightweight-rate-limiter-example/cloud-nacos-example工程
+
+- pom依赖引用
+
+```xml
+<dependency>
+    <groupId>io.redick01.ratelimiter</groupId>
+    <artifactId>ratelimiter-spring-boot-starter-cloud-nacos</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+- bootstrap.yml配置
+
+```yaml
+server:
+  port: 8107
+
+spring:
+  application:
+    name: cloud-nacos-example
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        refresh-enabled: true
+        extension-configs:
+          - dataId: cloud-nacos-example-dev.yml
+            group: DEFAULT_GROUP
+            refresh: true
+```
+
+- Nacos配置中心配置文件cloud-nacos-example-dev.yml配置内容：
+
+```yaml
+# nacos配置示例
+spring:
+  ratelimiter:
+    redis-config:
+      url: 127.0.0.1
+      database: 0
+    rate-limiter-configs:
+      - algorithmName: token_bucket_rate_limiter
+        rateLimiterKey : nacos-rate-test1
+        capacity: 1000
+        rate: 10
+        expressionType: spel
+      - algorithmName: sliding_window_rate_limiter
+        rateLimiterKey: "'/nacos-rate/test2:' + #args[0].userId"
+        capacity: 1000
+        rate: 200
+        expressionType: spel
+```
+
+### Apollo配置中心的Spring Boot应用接入
+
+可参考lightweight-rate-limiter-example/apollo-example工程
+
+- pom依赖引用
+
+```xml
+<dependency>
+    <groupId>io.redick01.ratelimiter</groupId>
+    <artifactId>ratelimiter-spring-boot-starter-apollo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+- application.yml配置
+
+```yaml
+server:
+  port: 8108
+
+apollo:
+  bootstrap:
+    namespaces: rate-limiter.yml
+    enabled: true
+  meta: http://127.0.0.1:8080
+  config-service: http://127.0.0.1:8080
+
+app:
+  id: apollo-example
+
+spring:
+  application:
+    name: apollo-example
+  ratelimiter:
+    apollo:
+      namespace: rate-limiter.yml
+
+```
+
+- Apollo配置中心配置文件rate-limiter.yml配置内容：
+
+```yaml
+# apollo配置示例
+spring:
+  ratelimiter:
+    redis-config:
+      url: 127.0.0.1
+      database: 0
+    rate-limiter-configs:
+      - algorithmName: token_bucket_rate_limiter
+        rateLimiterKey : apollo-rate-test1
+        capacity: 1000
+        rate: 10
+        expressionType: spel
+      - algorithmName: sliding_window_rate_limiter
+        rateLimiterKey: "'/apollo-rate/test2:' + #args[0].userId"
+        capacity: 1000
+        rate: 200
+        expressionType: spel
 ```
 
 ## 压测

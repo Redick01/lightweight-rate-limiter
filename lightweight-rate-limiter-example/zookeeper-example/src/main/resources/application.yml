@@ -8,6 +8,7 @@ spring:
       root-node: /configserver/userproject
       node: ratelimit-group
       config-version: 1.0.0
-    config-type: properties
+      config-key: rateLimit1
+    config-type: json
   application:
     name: zookeeper-example

@@ -1,5 +1,6 @@
 package io.redick01.ratelimiter.parser.config;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.redick01.spi.SPI;
 
 import java.io.IOException;
@@ -25,5 +26,5 @@ public interface ConfigParser {
      * @param prefix key prefix
      * @return k-v properties
      */
-    Map<Object, Object> doParse(String content, String prefix);
+    Map<Object, Object> doParse(String content, String prefix) throws JsonProcessingException;
 }

@@ -19,6 +19,7 @@
         <module>nacos-example</module>
         <module>cloud-nacos-example</module>
         <module>apollo-example</module>
+        <module>cloud-consul-example</module>
     </modules>
 
     <properties>

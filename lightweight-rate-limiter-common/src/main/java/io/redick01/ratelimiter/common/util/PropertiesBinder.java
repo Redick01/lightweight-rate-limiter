@@ -10,6 +10,8 @@ import org.springframework.core.env.Environment;
 
 import java.util.Map;
 
+import static io.redick01.ratelimiter.common.constant.Constant.CONFIG_PREFIX;
+
 /**
  * @author Redick01
  */
@@ -22,13 +24,13 @@ public class PropertiesBinder {
         Binder binder = new Binder(sources);
         ResolvableType type = ResolvableType.forClass(RtProperties.class);
         Bindable<?> target = Bindable.of(type).withExistingValue(rtProperties);
-        binder.bind("spring.ratelimiter", target);
+        binder.bind(CONFIG_PREFIX, target);
     }
 
     public static void bindDtpProperties(Environment environment, RtProperties rtProperties) {
         Binder binder = Binder.get(environment);
         ResolvableType type = ResolvableType.forClass(RtProperties.class);
         Bindable<?> target = Bindable.of(type).withExistingValue(rtProperties);
-        binder.bind("spring.ratelimiter", target);
+        binder.bind(CONFIG_PREFIX, target);
     }
 }

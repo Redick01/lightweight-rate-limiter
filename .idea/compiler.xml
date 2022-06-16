@@ -15,6 +15,7 @@
         <module name="cloud-nacos-example" />
         <module name="ratelimiter-spring-boot-starter-apollo" />
         <module name="lightweight-rate-limiter-common" />
+        <module name="cloud-consul-example" />
         <module name="springboot-example" />
         <module name="nacos-example" />
         <module name="apollo-example" />

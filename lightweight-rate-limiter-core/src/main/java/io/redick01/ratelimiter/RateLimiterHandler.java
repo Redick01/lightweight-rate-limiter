@@ -39,7 +39,7 @@ public class RateLimiterHandler {
                     doubleToString(1.0));
             assert result != null;
             Long tokensLeft = result.get(1);
-            log.info("remain token count：{}", rateLimiterConfig.getCapacity() - tokensLeft);
+            log.info("rate limiter core data: {}", tokensLeft);
             return result.get(0) == 1L;
         } finally {
             rateLimiterAlgorithm.callback(redisScript, keys);

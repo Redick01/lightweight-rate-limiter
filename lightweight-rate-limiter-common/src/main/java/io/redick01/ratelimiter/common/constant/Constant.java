@@ -6,4 +6,6 @@ package io.redick01.ratelimiter.common.constant;
 public class Constant {
 
     public static final String SCRIPT_PATH = "/META-INF/scripts/";
+
+    public static final String CONFIG_PREFIX = "spring.ratelimiter";
 }

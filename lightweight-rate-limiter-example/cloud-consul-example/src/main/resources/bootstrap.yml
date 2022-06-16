@@ -1,0 +1,16 @@
+server:
+  port: 8109
+spring:
+  application:
+    name: cloud-consul-example
+  cloud:
+    consul:
+      config:
+        enabled: true
+        prefixes: config
+        format: yaml
+        data-key: cloud-consul-example-dev.yml
+      host: 127.0.0.1
+      port: 8500
+  profiles:
+    active: dev

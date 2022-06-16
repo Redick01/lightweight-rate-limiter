@@ -7,12 +7,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.time.Duration;
 import java.util.List;
 
+import static io.redick01.ratelimiter.common.constant.Constant.CONFIG_PREFIX;
+
 /**
  * @author Redick01
  */
 @Slf4j
 @Data
-@ConfigurationProperties(prefix = "spring.ratelimiter")
+@ConfigurationProperties(prefix = CONFIG_PREFIX)
 public class RtProperties {
 
     private String configType = "yml";
