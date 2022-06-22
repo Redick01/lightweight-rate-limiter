@@ -1,0 +1,16 @@
+server:
+  port: 8110
+
+spring:
+  ratelimiter:
+    config-type: json
+    etcd:
+      endpoints: http://127.0.0.1:2379
+      auth-enable: false
+      key: /config/etcd-example/rate-limiter-key
+  application:
+    name: zookeeper-example
+
+logging:
+  level:
+    root: INFO

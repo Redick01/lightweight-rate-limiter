@@ -7,6 +7,7 @@ io/redick01/ratelimiter/RateLimiterHandler.class
 io/redick01/ratelimiter/algorithm/TokenBucketRateLimiterAlgorithm.class
 io/redick01/ratelimiter/algorithm/SlidingWindowRateLimiterAlgorithm.class
 io/redick01/ratelimiter/parser/config/PropertiesConfigParser.class
+io/redick01/ratelimiter/parser/config/JsonConfigParser.class
 io/redick01/ratelimiter/algorithm/ConcurrentRateLimiterAlgorithm.class
 io/redick01/ratelimiter/registry/RateLimiterRegistry.class
 io/redick01/ratelimiter/annotation/RateLimiter.class

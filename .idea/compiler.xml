@@ -10,6 +10,7 @@
         <module name="ratelimiter-spring-boot-starter-zookeeper" />
         <module name="ratelimiter-spring-boot-starter-cloud-consul" />
         <module name="zookeeper-example" />
+        <module name="ratelimiter-spring-boot-starter-etcd" />
         <module name="lightweight-rate-limiter-spi" />
         <module name="ratelimiter-spring-boot-starter-common" />
         <module name="cloud-nacos-example" />
@@ -25,6 +26,7 @@
         <module name="ratelimiter-spring-boot-starter-nacos" />
         <module name="lightweight-rate-limiter-core" />
         <module name="common-example" />
+        <module name="etcd-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

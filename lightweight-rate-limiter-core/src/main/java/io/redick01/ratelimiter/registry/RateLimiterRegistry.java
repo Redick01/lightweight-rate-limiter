@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationRunner;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Redick01
@@ -31,6 +32,10 @@ public class RateLimiterRegistry implements ApplicationRunner {
 
     public static void refresh(RtProperties rtProperties) {
         List<RateLimiterConfigProperties> rateLimiterConfigs = rtProperties.getRateLimiterConfigs();
+        if (Objects.isNull(rateLimiterConfigs)) {
+            log.debug("RateLimiterConfigProperties is null, no refresh rate limiter !");
+            return;
+        }
         rateLimiterConfigs.parallelStream().forEach(rateLimiterConfig -> {
             log.info("refresh rate limiter key : {}", rateLimiterConfig.toString());
             RATE_LIMITER_REGISTRY.put(rateLimiterConfig.getRateLimiterKey(), rateLimiterConfig);

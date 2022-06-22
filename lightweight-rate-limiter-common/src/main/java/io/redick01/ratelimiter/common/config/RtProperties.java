@@ -25,6 +25,8 @@ public class RtProperties {
 
     private Apollo apollo;
 
+    private Etcd etcd;
+
     private List<RateLimiterConfigProperties> rateLimiterConfigs;
 
     private RedisConfig redisConfig;
@@ -56,6 +58,24 @@ public class RtProperties {
     public static class Apollo {
 
         private String namespace;
+    }
+
+    @Data
+    public static class Etcd {
+
+        private String endpoints;
+
+        private String user;
+
+        private String password;
+
+        private String charset = "UTF-8";
+
+        private Boolean authEnable = false;
+
+        private String authority = "ssl";
+
+        private String key;
     }
 
     @Data

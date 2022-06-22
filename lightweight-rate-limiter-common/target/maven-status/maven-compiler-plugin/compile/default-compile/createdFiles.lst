@@ -7,6 +7,7 @@ io/redick01/ratelimiter/common/config/RtProperties$Zookeeper.class
 io/redick01/ratelimiter/common/constant/Constant.class
 io/redick01/ratelimiter/common/enums/RateLimitEnum.class
 io/redick01/ratelimiter/common/enums/RedisModeEnum.class
+io/redick01/ratelimiter/common/config/RtProperties$Etcd.class
 io/redick01/ratelimiter/common/enums/ConfigFileTypeEnum.class
 io/redick01/ratelimiter/common/config/RtProperties$Nacos.class
 io/redick01/ratelimiter/common/config/RtProperties.class

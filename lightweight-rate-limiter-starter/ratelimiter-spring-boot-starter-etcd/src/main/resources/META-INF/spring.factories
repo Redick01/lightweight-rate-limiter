@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  io.redick01.ratelimiter.starter.configure.EtcdAutoConfiguration
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  io.redick01.ratelimiter.starter.configure.EtcdConfigEnvironmentProcessor

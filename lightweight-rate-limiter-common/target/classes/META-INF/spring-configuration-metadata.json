@@ -11,6 +11,11 @@
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
     },
     {
+      "name": "spring.ratelimiter.etcd",
+      "type": "io.redick01.ratelimiter.common.config.RtProperties$Etcd",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
+    },
+    {
       "name": "spring.ratelimiter.nacos",
       "type": "io.redick01.ratelimiter.common.config.RtProperties$Nacos",
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
@@ -37,6 +42,44 @@
       "type": "java.lang.String",
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties",
       "defaultValue": "yml"
+    },
+    {
+      "name": "spring.ratelimiter.etcd.auth-enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.ratelimiter.etcd.authority",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd",
+      "defaultValue": "ssl"
+    },
+    {
+      "name": "spring.ratelimiter.etcd.charset",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "spring.ratelimiter.etcd.endpoints",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd"
+    },
+    {
+      "name": "spring.ratelimiter.etcd.key",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd"
+    },
+    {
+      "name": "spring.ratelimiter.etcd.password",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd"
+    },
+    {
+      "name": "spring.ratelimiter.etcd.user",
+      "type": "java.lang.String",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd"
     },
     {
       "name": "spring.ratelimiter.nacos.data-id",

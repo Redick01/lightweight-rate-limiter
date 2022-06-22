@@ -1,0 +1,1 @@
+{"config-type":"json","redisConfig":{"url":"127.0.0.1","database":"0"}, "rateLimiterConfigs":[{"algorithmName":"token_bucket_rate_limiter","rateLimiterKey":"etcd-rate-test1","capacity":1000,"rate":100,"expressionType":"spel"},{"algorithmName":"token_bucket_rate_limiter","rateLimiterKey":"'/etcd-rate/test2:' + #args[0].userId","capacity":1000,"rate":100,"expressionType":"spel"}]}

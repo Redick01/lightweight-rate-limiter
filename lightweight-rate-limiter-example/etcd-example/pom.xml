@@ -3,25 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>lightweight-rate-limiter</artifactId>
+        <artifactId>example</artifactId>
         <groupId>io.redick01.ratelimiter</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>example</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>springboot-example</module>
-        <module>common-example</module>
-        <module>zookeeper-example</module>
-        <module>cloud-zookeeper-example</module>
-        <module>nacos-example</module>
-        <module>cloud-nacos-example</module>
-        <module>apollo-example</module>
-        <module>cloud-consul-example</module>
-        <module>etcd-example</module>
-    </modules>
+    <artifactId>etcd-example</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -30,8 +18,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>io.redick01.ratelimiter</groupId>
+            <artifactId>common-example</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.redick01.ratelimiter</groupId>
+            <artifactId>ratelimiter-spring-boot-starter-etcd</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.etcd</groupId>
+            <artifactId>jetcd-core</artifactId>
+            <version>0.7.1</version>
         </dependency>
     </dependencies>
 </project>
