@@ -2,6 +2,7 @@ package io.redick01.ratelimiter.configure;
 
 import io.redick01.ratelimiter.RateLimiterHandler;
 import io.redick01.ratelimiter.banner.RateLimiterBanner;
+import io.redick01.ratelimiter.monitor.Monitor;
 import io.redick01.ratelimiter.registry.RateLimiterRegistry;
 import io.redick01.ratelimiter.aop.RateLimiterInterceptor;
 import io.redick01.ratelimiter.common.config.RtProperties;
@@ -47,5 +48,11 @@ public class BaseAutoConfiguration {
     @Bean
     public RateLimiterBanner rateLimiterBanner() {
         return new RateLimiterBanner();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public Monitor monitor() {
+        return new Monitor();
     }
 }

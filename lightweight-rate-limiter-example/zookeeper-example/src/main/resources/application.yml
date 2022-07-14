@@ -10,5 +10,17 @@ spring:
       config-version: 1.0.0
       config-key: rateLimit1
     config-type: json
+    enable-monitor: true
+    monitor-interval: 3
   application:
     name: zookeeper-example
+
+# 对接prometheus
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: '*'

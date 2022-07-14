@@ -27,6 +27,10 @@ public class RtProperties {
 
     private Etcd etcd;
 
+    private Boolean enableMonitor = false;
+
+    private Integer monitorInterval = 5;
+
     private List<RateLimiterConfigProperties> rateLimiterConfigs;
 
     private RedisConfig redisConfig;

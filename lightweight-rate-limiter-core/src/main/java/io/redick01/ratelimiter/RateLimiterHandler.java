@@ -3,6 +3,7 @@ package io.redick01.ratelimiter;
 import io.redick01.ratelimiter.algorithm.RateLimiterAlgorithm;
 import io.redick01.ratelimiter.common.config.RateLimiterConfigProperties;
 import io.redick01.ratelimiter.common.enums.Singleton;
+import io.redick01.ratelimiter.monitor.MetricsRegistry;
 import io.redick01.ratelimiter.parser.script.ScriptParser;
 import io.redick01.spi.ExtensionLoader;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,7 @@ public class RateLimiterHandler {
                 .getJoin(rateLimiterConfig.getExpressionType());
         String realKey = parser.getExpressionValue(rateLimiterConfig.getRateLimiterKey(), args);
         List<String> keys = rateLimiterAlgorithm.getKeys(realKey);
+        Long tokensLeft = 0L;
         try {
             List<Long> result = (List<Long>) Singleton.INST.get(RedisTemplate.class).execute(redisScript,
                     keys,
@@ -38,11 +40,15 @@ public class RateLimiterHandler {
                     doubleToString(Instant.now().getEpochSecond()),
                     doubleToString(1.0));
             assert result != null;
-            Long tokensLeft = result.get(1);
+            tokensLeft = result.get(1);
             log.info("rate limiter core data: {}", tokensLeft);
             return result.get(0) == 1L;
         } finally {
             rateLimiterAlgorithm.callback(redisScript, keys);
+            Long finalTokensLeft = tokensLeft;
+            new Thread(() -> {
+                MetricsRegistry.refresh(rateLimiterConfig.getRateLimiterKey(), keys.get(0), finalTokensLeft, rateLimiterConfig);
+            }).start();
         }
     }
 

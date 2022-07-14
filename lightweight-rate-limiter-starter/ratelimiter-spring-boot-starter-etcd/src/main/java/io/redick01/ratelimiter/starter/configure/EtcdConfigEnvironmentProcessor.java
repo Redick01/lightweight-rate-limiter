@@ -4,6 +4,7 @@ import io.redick01.ratelimiter.common.config.RtProperties;
 import io.redick01.ratelimiter.common.util.PropertiesBinder;
 import io.redick01.ratelimiter.starter.util.EtcdUtil;
 import lombok.SneakyThrows;
+import lombok.val;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.OriginTrackedMapPropertySource;
@@ -27,7 +28,7 @@ public class EtcdConfigEnvironmentProcessor implements EnvironmentPostProcessor,
         RtProperties rtProperties = new RtProperties();
         PropertiesBinder.bindDtpProperties(environment, rtProperties);
         RtProperties.Etcd etcd = rtProperties.getEtcd();
-        Map<Object, Object> properties = EtcdUtil.getConfigContent(etcd, rtProperties.getConfigType());
+        val properties = EtcdUtil.getConfigContent(etcd, rtProperties.getConfigType());
         if (!checkPropertyExist(environment)) {
             createPropertySource(environment, properties);
         }

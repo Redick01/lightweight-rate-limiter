@@ -15,6 +15,7 @@ import io.redick01.ratelimiter.starter.util.EtcdUtil;
 import io.redick01.spi.ExtensionLoader;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.Ordered;
@@ -23,7 +24,6 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 /**
  * @author Redick01
@@ -56,7 +56,7 @@ public class EtcdRefresher extends AbstractRefresher implements InitializingBean
                     KeyValue keyValue = response.getKvs().get(0);
                     String configType = rtProperties.getConfigType();
                     try {
-                        Map<Object, Object> properties = ExtensionLoader
+                        val properties = ExtensionLoader
                                 .getExtensionLoader(ConfigParser.class)
                                 .getJoin(configType)
                                 .doParse(keyValue.getValue().toString(Charset.forName(etcd.getCharset())));
@@ -83,7 +83,7 @@ public class EtcdRefresher extends AbstractRefresher implements InitializingBean
                 if (WatchEvent.EventType.PUT.equals(eventType)) {
                     log.info("the etcd config content should be updated, key is " + key);
                     String configType = rtProperties.getConfigType();
-                    Map<Object, Object> properties = ExtensionLoader
+                    val properties = ExtensionLoader
                             .getExtensionLoader(ConfigParser.class)
                             .getJoin(configType)
                             .doParse(keyValue.getValue().toString(Charset.forName(etcd.getCharset())));

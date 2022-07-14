@@ -25,7 +25,7 @@ public class EtcdUtil {
 
 
     public static Client client(RtProperties.Etcd etcd) {
-        Client client = client = Singleton.INST.get(Client.class);
+        Client client = Singleton.INST.get(Client.class);
         if (Objects.isNull(client)) {
             if (!etcd.getAuthEnable()) {
                 client = Client.builder()

@@ -40,26 +40,27 @@
     {
       "name": "spring.ratelimiter.config-type",
       "type": "java.lang.String",
-      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties",
-      "defaultValue": "yml"
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
+    },
+    {
+      "name": "spring.ratelimiter.enable-monitor",
+      "type": "java.lang.Boolean",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
     },
     {
       "name": "spring.ratelimiter.etcd.auth-enable",
       "type": "java.lang.Boolean",
-      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd",
-      "defaultValue": false
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd"
     },
     {
       "name": "spring.ratelimiter.etcd.authority",
       "type": "java.lang.String",
-      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd",
-      "defaultValue": "ssl"
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd"
     },
     {
       "name": "spring.ratelimiter.etcd.charset",
       "type": "java.lang.String",
-      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd",
-      "defaultValue": "UTF-8"
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd"
     },
     {
       "name": "spring.ratelimiter.etcd.endpoints",
@@ -82,6 +83,11 @@
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Etcd"
     },
     {
+      "name": "spring.ratelimiter.monitor-interval",
+      "type": "java.lang.Integer",
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties"
+    },
+    {
       "name": "spring.ratelimiter.nacos.data-id",
       "type": "java.lang.String",
       "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$Nacos"
@@ -99,8 +105,7 @@
     {
       "name": "spring.ratelimiter.redis-config.database",
       "type": "java.lang.Integer",
-      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
-      "defaultValue": 0
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig"
     },
     {
       "name": "spring.ratelimiter.redis-config.master",
@@ -111,29 +116,25 @@
       "name": "spring.ratelimiter.redis-config.max-active",
       "type": "java.lang.Integer",
       "description": "Maximum number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.",
-      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
-      "defaultValue": 8
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig"
     },
     {
       "name": "spring.ratelimiter.redis-config.max-idle",
       "type": "java.lang.Integer",
       "description": "Maximum number of \"idle\" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.",
-      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
-      "defaultValue": 8
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig"
     },
     {
       "name": "spring.ratelimiter.redis-config.max-wait",
       "type": "java.time.Duration",
       "description": "Maximum amount of time a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.",
-      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
-      "defaultValue": "-1ms"
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig"
     },
     {
       "name": "spring.ratelimiter.redis-config.min-idle",
       "type": "java.lang.Integer",
       "description": "Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if it is positive.",
-      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig",
-      "defaultValue": 0
+      "sourceType": "io.redick01.ratelimiter.common.config.RtProperties$RedisConfig"
     },
     {
       "name": "spring.ratelimiter.redis-config.password",

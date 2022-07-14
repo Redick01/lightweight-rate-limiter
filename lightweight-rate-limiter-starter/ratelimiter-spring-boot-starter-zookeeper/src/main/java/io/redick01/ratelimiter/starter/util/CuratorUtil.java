@@ -85,7 +85,7 @@ public class CuratorUtil {
         try {
             final GetChildrenBuilder childrenBuilder = curatorFramework.getChildren();
             final List<String> children = childrenBuilder.watched().forPath(nodePath);
-            Map<Object, Object> properties = Maps.newHashMap();
+            val properties = Maps.newHashMap();
             children.forEach(c -> {
                 String path = ZKPaths.makePath(nodePath, c);
                 final String nodeName = ZKPaths.getNodeFromPath(path);
