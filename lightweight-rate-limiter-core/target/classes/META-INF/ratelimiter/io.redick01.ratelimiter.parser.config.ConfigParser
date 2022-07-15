@@ -1,4 +1,0 @@
-yml=io.redick01.ratelimiter.parser.config.YmlConfigParser
-yaml=io.redick01.ratelimiter.parser.config.YmlConfigParser
-properties=io.redick01.ratelimiter.parser.config.PropertiesConfigParser
-json=io.redick01.ratelimiter.parser.config.JsonConfigParser

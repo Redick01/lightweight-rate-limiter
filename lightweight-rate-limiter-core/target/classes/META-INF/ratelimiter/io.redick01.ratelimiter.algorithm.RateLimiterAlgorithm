@@ -1,4 +1,0 @@
-concurrent_request_rate_limiter=io.redick01.ratelimiter.algorithm.ConcurrentRateLimiterAlgorithm
-token_bucket_rate_limiter=io.redick01.ratelimiter.algorithm.TokenBucketRateLimiterAlgorithm
-leaky_bucket_rate_limiter=io.redick01.ratelimiter.algorithm.LeakyBucketRateLimiterAlgorithm
-sliding_window_rate_limiter=io.redick01.ratelimiter.algorithm.SlidingWindowRateLimiterAlgorithm
