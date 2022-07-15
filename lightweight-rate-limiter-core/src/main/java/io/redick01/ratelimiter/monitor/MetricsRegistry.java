@@ -1,42 +1,46 @@
 package io.redick01.ratelimiter.monitor;
 
 import io.redick01.ratelimiter.common.config.RateLimiterConfigProperties;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.Ordered;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Redick01
  */
-public class MetricsRegistry implements ApplicationRunner, Ordered {
+public class MetricsRegistry {
 
     public static final Map<String, RateLimiterMetrics> METRICS_MAP = new ConcurrentHashMap<>(16);
 
-
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-
-    }
-
-    @Override
-    public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE + 3;
-    }
-
-    public static void refresh(final String key, final String realKey, final Long tokensLeft, final RateLimiterConfigProperties properties) {
-        if (METRICS_MAP.containsKey(realKey)) {
+    public static void refresh(final String key, final String realKey, final List<Long> tokensLeft, final RateLimiterConfigProperties properties) {
+        if (METRICS_MAP.containsKey(key)) {
             RateLimiterMetrics metrics = METRICS_MAP.get(key);
-            metrics.setTokensLeft(tokensLeft);
+            metrics.setRealKey(realKey);
+            metrics.setTokensLeft(tokensLeft.get(1));
+            metrics.setCapacity(properties.getCapacity());
+            metrics.setRate(properties.getRate());
+            metrics.setAlgorithmName(properties.getAlgorithmName());
+            if (tokensLeft.get(0) != 1L) {
+                metrics.getRejectCount().add();
+            }
         } else {
             RateLimiterMetrics metrics = RateLimiterMetrics.builder()
-                    .key(realKey)
+                    .realKey(realKey)
+                    .capacity(properties.getCapacity())
+                    .rate(properties.getRate())
                     .algorithmName(properties.getAlgorithmName())
-                    .tokensLeft(tokensLeft)
+                    .tokensLeft(tokensLeft.get(1))
+                    .rejectCount(new CountHolder())
                     .build();
-            METRICS_MAP.put(realKey, metrics);
+            METRICS_MAP.put(key, metrics);
+        }
+    }
+
+    public static void recover(final String key, final Long capacity) {
+        if (METRICS_MAP.containsKey(key)) {
+            RateLimiterMetrics metrics = METRICS_MAP.get(key);
+            metrics.setTokensLeft(capacity);
         }
     }
 }

@@ -21,21 +21,27 @@ public class MetricsCollector implements Collector {
     @Override
     public void collect(String appName, RateLimiterMetrics rateLimiterMetrics) {
         Iterable<Tag> tags = Lists.newArrayList(
-                Tag.of(POOL_NAME_TAG, rateLimiterMetrics.getKey()),
+                Tag.of(POOL_NAME_TAG, rateLimiterMetrics.getRealKey()),
                 Tag.of(APP_NAME_TAG, appName),
                 Tag.of(ALGORITHM_NAME_TAG, rateLimiterMetrics.getAlgorithmName()));
-        Metrics.gauge(metricName(), tags, rateLimiterMetrics, this::tokensLeft);
+        Metrics.gauge(metricName("capacity"), tags, rateLimiterMetrics, RateLimiterMetrics::getCapacity);
+        Metrics.gauge(metricName("rate"), tags, rateLimiterMetrics, RateLimiterMetrics::getRate);
+        Metrics.gauge(metricName("tokens.left"), tags, rateLimiterMetrics, this::tokensLeft);
+        Metrics.gauge(metricName("reject.count"), tags, rateLimiterMetrics, this::getRejectCount);
     }
 
-    private static String metricName() {
-        return String.join(".", METRIC_NAME_PREFIX, "tokens.left");
+    private static String metricName(String name) {
+        return String.join(".", METRIC_NAME_PREFIX, name);
     }
 
-    private Long tokensLeft(RateLimiterMetrics rateLimiterMetrics) {
-        //// TODO: 2022/7/14 1.准确计算剩余token 2.限流配置变更时发出事件更新 MetricsRegistry 3.恢复MetricsRegistry的剩余token
+    private double tokensLeft(RateLimiterMetrics rateLimiterMetrics) {
         if ("leaky_bucket_rate_limiter".equals(rateLimiterMetrics.getAlgorithmName())) {
-            return 0L;
+            return rateLimiterMetrics.getTokensLeft();
         }
-        return 0L;
+        return rateLimiterMetrics.getCapacity() - rateLimiterMetrics.getTokensLeft();
+    }
+
+    private Integer getRejectCount(RateLimiterMetrics rateLimiterMetrics) {
+        return rateLimiterMetrics.getRejectCount().getCount();
     }
 }

@@ -11,6 +11,8 @@
 
 - 支持Spel表达式，能够实现多维度限流
 
+- 限流情况可观测性支持
+
 ## 算法介绍
 
 ### 令牌桶算法
@@ -487,6 +489,89 @@ spring:
         rate: 200
         expressionType: spel
 ```
+
+## 可观测性
+
+### Prometheus + Grafana可观测性支持
+ 
+- pom配置
+
+增加prometheus依赖
+
+```xml
+  <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+      <version>1.6.4</version>
+  </dependency>
+  
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+  </dependency>
+```
+
+- application.yml配置
+
+```yaml
+# 对接prometheus
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+```
+
+- Prometheus端服务发现配置
+
+修改prometheus.yml文件，在`scrape_configs`标签下增加指标拉取配置`job`ratelimiter--zookeeper-demo-prometheus
+
+```yaml
+# my global config
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: "ratelimiter--zookeeper-demo-prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ["localhost:8104"]
+```
+
+- 效果图
+
+![img.png](doc/metrics.png)
 
 ## 压测
 

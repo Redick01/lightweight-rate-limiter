@@ -17,7 +17,7 @@ import java.util.List;
  * @author Redick01
  */
 @Slf4j
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class RateLimiterHandler {
 
 
@@ -31,23 +31,23 @@ public class RateLimiterHandler {
                 .getJoin(rateLimiterConfig.getExpressionType());
         String realKey = parser.getExpressionValue(rateLimiterConfig.getRateLimiterKey(), args);
         List<String> keys = rateLimiterAlgorithm.getKeys(realKey);
-        Long tokensLeft = 0L;
+        List<Long> result = null;
         try {
-            List<Long> result = (List<Long>) Singleton.INST.get(RedisTemplate.class).execute(redisScript,
+            result = (List<Long>) Singleton.INST.get(RedisTemplate.class).execute(redisScript,
                     keys,
                     doubleToString(rateLimiterConfig.getRate()),
                     doubleToString(rateLimiterConfig.getCapacity()),
                     doubleToString(Instant.now().getEpochSecond()),
                     doubleToString(1.0));
             assert result != null;
-            tokensLeft = result.get(1);
+            Long tokensLeft = result.get(1);
             log.info("rate limiter core data: {}", tokensLeft);
             return result.get(0) == 1L;
         } finally {
             rateLimiterAlgorithm.callback(redisScript, keys);
-            Long finalTokensLeft = tokensLeft;
+            List<Long> finalResult = result;
             new Thread(() -> {
-                MetricsRegistry.refresh(rateLimiterConfig.getRateLimiterKey(), keys.get(0), finalTokensLeft, rateLimiterConfig);
+                MetricsRegistry.refresh(rateLimiterConfig.getRateLimiterKey(), keys.get(0), finalResult, rateLimiterConfig);
             }).start();
         }
     }
