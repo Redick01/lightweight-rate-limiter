@@ -24,6 +24,12 @@ public enum ConfigFileTypeEnum {
         this.value = value;
     }
 
+    /**
+     * enum config type.
+     *
+     * @param value config value
+     * @return config enum
+     */
     public static ConfigFileTypeEnum of(String value) {
         for (ConfigFileTypeEnum typeEnum : ConfigFileTypeEnum.values()) {
             if (typeEnum.value.equals(value)) {

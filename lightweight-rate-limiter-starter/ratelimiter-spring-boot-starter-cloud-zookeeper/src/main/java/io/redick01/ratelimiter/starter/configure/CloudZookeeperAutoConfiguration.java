@@ -14,8 +14,12 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(ZookeeperConfigProperties.class)
 public class CloudZookeeperAutoConfiguration {
 
+    /**
+     * {@link CloudZookeeperRefresher}.
+     * @return CloudZookeeperRefresher
+     */
     @Bean
-    @ConditionalOnMissingBean()
+    @ConditionalOnMissingBean
     public CloudZookeeperRefresher cloudZookeeperRefresher() {
         return new CloudZookeeperRefresher();
     }

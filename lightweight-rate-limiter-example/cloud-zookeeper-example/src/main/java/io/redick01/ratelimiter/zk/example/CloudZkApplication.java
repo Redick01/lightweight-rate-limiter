@@ -9,6 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CloudZkApplication {
 
+    /**
+     * startup.
+     * @param args parameter
+     */
     public static void main(String[] args) {
         SpringApplication.run(CloudZkApplication.class, args);
     }

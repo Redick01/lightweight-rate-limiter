@@ -22,7 +22,7 @@ public class ZkConfigEnvironmentProcessor implements EnvironmentPostProcessor, O
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         RtProperties rtProperties = new RtProperties();
-        PropertiesBinder.bindDtpProperties(environment, rtProperties);
+        PropertiesBinder.bindRtProperties(environment, rtProperties);
         Map<Object, Object> properties = CuratorUtil.genPropertiesMap(rtProperties);
         if (!checkPropertyExist(environment)) {
             createZkPropertySource(environment, properties);

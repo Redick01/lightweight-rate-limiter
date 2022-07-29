@@ -14,8 +14,12 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(ConsulConfigProperties.class)
 public class CloudConsulAutoConfiguration {
 
+    /**
+     * {@link CloudConsulRefresher}.
+     * @return CloudConsulRefresher
+     */
     @Bean
-    @ConditionalOnMissingBean()
+    @ConditionalOnMissingBean
     public CloudConsulRefresher cloudConsulRefresher() {
         return new CloudConsulRefresher();
     }

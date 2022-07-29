@@ -19,11 +19,15 @@ import java.util.concurrent.ExecutionException;
 /**
  * @author Redick01
  */
-public class EtcdUtil {
+public final class EtcdUtil {
 
-    private EtcdUtil() {}
+    private EtcdUtil() { }
 
-
+    /**
+     * {@link Client}.
+     * @param etcd {@link io.redick01.ratelimiter.common.config.RtProperties.Etcd}
+     * @return Client
+     */
     public static Client client(RtProperties.Etcd etcd) {
         Client client = Singleton.INST.get(Client.class);
         if (Objects.isNull(client)) {
@@ -43,8 +47,17 @@ public class EtcdUtil {
         return client;
     }
 
-    public static Map<Object, Object> getConfigContent(final RtProperties.Etcd etcd, final String configType) throws ExecutionException
-            , InterruptedException, IOException {
+    /**
+     * get config content.
+     * @param etcd {@link io.redick01.ratelimiter.common.config.RtProperties.Etcd}
+     * @param configType config type
+     * @return config content
+     * @throws ExecutionException {@link ExecutionException}
+     * @throws InterruptedException {@link InterruptedException}
+     * @throws IOException {@link IOException}
+     */
+    public static Map<Object, Object> getConfigContent(final RtProperties.Etcd etcd,
+        final String configType) throws ExecutionException, InterruptedException, IOException {
         KeyValue keyValue = client(etcd)
                 .getKVClient()
                 .get(ByteSequence.from(etcd.getKey(), StandardCharsets.UTF_8))

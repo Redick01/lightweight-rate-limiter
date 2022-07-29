@@ -11,7 +11,7 @@ public class RateLimiterConfigProperties {
     private String algorithmName = "concurrent_request_rate_limiter";
 
     /**
-     * default spel
+     * default spel.
      */
     private String expressionType = "spel";
 

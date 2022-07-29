@@ -24,22 +24,21 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Monitor implements ApplicationRunner, Ordered {
 
-    public Monitor() {
-        Singleton.INST.single(Collector.class, new MetricsCollector());
-    }
-
     private static final ScheduledExecutorService MONITOR_EXECUTOR = new ScheduledThreadPoolExecutor(
-            1, new NamedThreadFactory("rate-limiter-monitor", true));
+        1, new NamedThreadFactory("rate-limiter-monitor", true));
 
     private static final ScheduledExecutorService RECOVER_TOKEN_EXECUTOR = new ScheduledThreadPoolExecutor(
-            1, new NamedThreadFactory("recover-token-executor", true));
+        1, new NamedThreadFactory("recover-token-executor", true));
 
+    @Value("${spring.application.name}")
+    private String appName;
 
     @Resource
     private RtProperties rtProperties;
 
-    @Value("${spring.application.name}")
-    private String appName;
+    public Monitor() {
+        Singleton.INST.single(Collector.class, new MetricsCollector());
+    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

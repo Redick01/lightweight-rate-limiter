@@ -25,6 +25,7 @@ public interface ConfigParser {
      * @param content content
      * @param prefix key prefix
      * @return k-v properties
+     * @throws JsonProcessingException {@link JsonProcessingException}
      */
     Map<Object, Object> doParse(String content, String prefix) throws JsonProcessingException;
 }

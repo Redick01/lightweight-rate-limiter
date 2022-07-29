@@ -17,19 +17,23 @@ import java.util.Objects;
 @Slf4j
 public class RateLimiterRegistry implements ApplicationRunner {
 
-    public final RtProperties rtProperties;
+    public static final Map<String, RateLimiterConfigProperties> RATE_LIMITER_REGISTRY = Maps.newConcurrentMap();
+
+    private final RtProperties rtProperties;
 
     public RateLimiterRegistry(RtProperties rtProperties) {
         this.rtProperties = rtProperties;
     }
-
-    public static final Map<String, RateLimiterConfigProperties> RATE_LIMITER_REGISTRY = Maps.newConcurrentMap();
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         refresh(rtProperties);
     }
 
+    /**
+     * refresh rate limiter registry.
+     * @param rtProperties {@link RtProperties}
+     */
     public static void refresh(RtProperties rtProperties) {
         List<RateLimiterConfigProperties> rateLimiterConfigs = rtProperties.getRateLimiterConfigs();
         if (Objects.isNull(rateLimiterConfigs)) {

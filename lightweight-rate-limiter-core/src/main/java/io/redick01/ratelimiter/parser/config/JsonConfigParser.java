@@ -4,6 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
+import io.redick01.ratelimiter.common.constant.Constant;
 import io.redick01.spi.Join;
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,8 +13,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static io.redick01.ratelimiter.common.constant.Constant.CONFIG_PREFIX;
 
 /**
  * @author Redick01
@@ -30,7 +29,7 @@ public class JsonConfigParser implements ConfigParser {
 
     @Override
     public Map<Object, Object> doParse(String content) throws IOException {
-        return doParse(content, CONFIG_PREFIX);
+        return doParse(content, Constant.CONFIG_PREFIX);
     }
 
     @Override

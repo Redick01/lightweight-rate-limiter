@@ -2,6 +2,7 @@ package io.redick01.ratelimiter.starter.refresh;
 
 import io.redick01.ratelimiter.common.config.RtProperties;
 import io.redick01.ratelimiter.refresh.AbstractRefresher;
+import io.redick01.ratelimiter.starter.configure.ZkConfigEnvironmentProcessor;
 import io.redick01.ratelimiter.starter.util.CuratorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
@@ -15,8 +16,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.Resource;
-
-import static io.redick01.ratelimiter.starter.configure.ZkConfigEnvironmentProcessor.ZK_PROPERTY_SOURCE_NAME;
 
 /**
  * @author Redick01
@@ -32,8 +31,8 @@ public class ZookeeperRefresher extends AbstractRefresher implements Environment
         final ConnectionStateListener connectionStateListener = (client, newState) -> {
             if (newState == ConnectionState.RECONNECTED) {
                 loadAndRefresh();
-            }};
-
+            }
+        };
         final CuratorListener curatorListener = (client, curatorEvent) -> {
             final WatchedEvent watchedEvent = curatorEvent.getWatchedEvent();
             if (null != watchedEvent) {
@@ -45,15 +44,13 @@ public class ZookeeperRefresher extends AbstractRefresher implements Environment
                     default:
                         break;
                 }
-            }};
-
+            }
+        };
         CuratorFramework curatorFramework = CuratorUtil.getCuratorFramework(rtProperties);
         String nodePath = CuratorUtil.nodePath(rtProperties);
-
         curatorFramework.getConnectionStateListenable().addListener(connectionStateListener);
         curatorFramework.getCuratorListenable().addListener(curatorListener);
-
-        log.info("DynamicTp refresher, add listener success, nodePath: {}", nodePath);
+        log.info("Add listener success, nodePath: {}", nodePath);
     }
 
     private void loadAndRefresh() {
@@ -62,7 +59,8 @@ public class ZookeeperRefresher extends AbstractRefresher implements Environment
 
     @Override
     public void setEnvironment(Environment environment) {
-        ConfigurableEnvironment env = ((ConfigurableEnvironment) environment);
-        env.getPropertySources().remove(ZK_PROPERTY_SOURCE_NAME);
+        ConfigurableEnvironment env = (ConfigurableEnvironment) environment;
+        env.getPropertySources().remove(
+            ZkConfigEnvironmentProcessor.ZK_PROPERTY_SOURCE_NAME);
     }
 }

@@ -12,6 +12,13 @@ import java.util.Objects;
  */
 public class NacosUtil {
 
+    /**
+     * get nacos config dataId.
+     * @param nacos nacos config
+     * @param environment {@link Environment}
+     * @param configFileTypeEnum {@link ConfigFileTypeEnum}
+     * @return nacos config dataId
+     */
     public static String getDataId(RtProperties.Nacos nacos, Environment environment, ConfigFileTypeEnum configFileTypeEnum) {
         String dataId = "";
         if (Objects.nonNull(nacos) && StringUtils.isNotBlank(nacos.getDataId())) {
@@ -25,10 +32,14 @@ public class NacosUtil {
             appName = StringUtils.isNoneBlank(appName) ? appName : "application";
             dataId = appName + "-" + profiles[0] + "." + configFileTypeEnum.getValue();
         }
-
         return dataId;
     }
 
+    /**
+     * get nacos group.
+     * @param nacos nacos config info
+     * @return nacos group
+     */
     public static String getGroup(RtProperties.Nacos nacos) {
         String group = "DEFAULT_GROUP";
         if (nacos != null && StringUtils.isNotBlank(nacos.getGroup())) {
@@ -37,6 +48,11 @@ public class NacosUtil {
         return group;
     }
 
+    /**
+     * {@link ConfigFileTypeEnum}.
+     * @param rtProperties {@link RtProperties}
+     * @return ConfigFileTypeEnum
+     */
     public static ConfigFileTypeEnum getConfigFileType(RtProperties rtProperties) {
         ConfigFileTypeEnum configFileType = ConfigFileTypeEnum.PROPERTIES;
         if (StringUtils.isNotBlank(rtProperties.getConfigType())) {

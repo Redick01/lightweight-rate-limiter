@@ -1,8 +1,7 @@
 package io.redick01.spi;
 
 /**
- * @author liupenghui
- *  2021/12/24 3:21 下午
+ * @author Redick01
  */
 @Join
 public class SpiExtensionFactory implements ExtensionFactory {

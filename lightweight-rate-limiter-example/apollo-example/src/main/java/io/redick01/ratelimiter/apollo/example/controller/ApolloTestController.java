@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ApolloTestController {
 
+    /**
+     * api1.
+     * @param request {@link Request}
+     * @return response
+     */
     @PostMapping("/apollo-rate/test1")
     @RateLimiter(key = "apollo-rate-test1", clazz = RateLimiterResponse1.class)
     public Response<String> test1(@RequestBody Request request) {
@@ -23,6 +28,11 @@ public class ApolloTestController {
         return new Response<>("0000", "成功", "success");
     }
 
+    /**
+     * api2.
+     * @param request {@link Request}
+     * @return Response
+     */
     @PostMapping("/apollo-rate/test2")
     @RateLimiter(key = "'/apollo-rate/test2:' + #args[0].userId", clazz = RateLimiterResponse1.class)
     public Response<String> test2(@RequestBody Request request) {

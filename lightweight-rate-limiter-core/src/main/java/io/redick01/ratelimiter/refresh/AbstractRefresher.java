@@ -34,6 +34,10 @@ public abstract class AbstractRefresher implements Refresher {
         }
     }
 
+    /**
+     * do refresh rate limiter container.
+     * @param rtProperties {@link RtProperties}
+     */
     public void doRefresh(final RtProperties rtProperties) {
         if (Objects.isNull(rtProperties)) {
             log.error("config properties is empty, rate limiter refresh failed.");
@@ -46,7 +50,7 @@ public abstract class AbstractRefresher implements Refresher {
             log.error("config properties is empty, rate limiter refresh failed.");
             return;
         }
-        PropertiesBinder.bindDtpProperties(properties, rtProperties);
+        PropertiesBinder.bindRtProperties(properties, rtProperties);
         RateLimiterRegistry.refresh(rtProperties);
     }
 }

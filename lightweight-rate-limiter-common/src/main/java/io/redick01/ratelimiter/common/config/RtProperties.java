@@ -1,5 +1,6 @@
 package io.redick01.ratelimiter.common.config;
 
+import io.redick01.ratelimiter.common.constant.Constant;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -7,14 +8,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.time.Duration;
 import java.util.List;
 
-import static io.redick01.ratelimiter.common.constant.Constant.CONFIG_PREFIX;
 
 /**
  * @author Redick01
  */
 @Slf4j
 @Data
-@ConfigurationProperties(prefix = CONFIG_PREFIX)
+@ConfigurationProperties(prefix = Constant.CONFIG_PREFIX)
 public class RtProperties {
 
     private String configType = "yml";
@@ -34,7 +34,6 @@ public class RtProperties {
     private List<RateLimiterConfigProperties> rateLimiterConfigs;
 
     private RedisConfig redisConfig;
-
 
     @Data
     public static class Zookeeper {

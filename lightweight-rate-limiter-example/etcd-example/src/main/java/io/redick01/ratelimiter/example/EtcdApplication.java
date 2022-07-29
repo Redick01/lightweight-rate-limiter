@@ -9,6 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EtcdApplication {
 
+    /**
+     * startup.
+     * @param args parameter
+     */
     public static void main(String[] args) {
         SpringApplication.run(EtcdApplication.class, args);
     }

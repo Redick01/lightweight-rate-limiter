@@ -1,10 +1,13 @@
 package io.redick01.spi;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * @author liupenghui
- *  2021/12/24 3:18 下午
+ * @author Redick01
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -12,7 +15,7 @@ import java.lang.annotation.*;
 public @interface SPI {
 
     /**
-     * value
+     * value.
      * @return value
      */
     String value() default "";

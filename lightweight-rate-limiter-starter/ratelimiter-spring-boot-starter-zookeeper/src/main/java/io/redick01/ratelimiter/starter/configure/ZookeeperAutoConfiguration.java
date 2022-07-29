@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(value = org.apache.curator.framework.CuratorFramework.class)
 public class ZookeeperAutoConfiguration {
 
+    /**
+     * Zk {@link io.redick01.ratelimiter.refresh.Refresher}.
+     * @return ZookeeperRefresher
+     */
     @Bean
     public ZookeeperRefresher zookeeperRefresher() {
         return new ZookeeperRefresher();

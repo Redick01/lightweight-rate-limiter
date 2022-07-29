@@ -13,6 +13,13 @@ public class MetricsRegistry {
 
     public static final Map<String, RateLimiterMetrics> METRICS_MAP = new ConcurrentHashMap<>(16);
 
+    /**
+     * refresh metrics container.
+     * @param key key
+     * @param realKey real key
+     * @param tokensLeft left token
+     * @param properties rate limiter config
+     */
     public static void refresh(final String key, final String realKey, final List<Long> tokensLeft, final RateLimiterConfigProperties properties) {
         if (METRICS_MAP.containsKey(key)) {
             RateLimiterMetrics metrics = METRICS_MAP.get(key);
@@ -37,6 +44,11 @@ public class MetricsRegistry {
         }
     }
 
+    /**
+     * recover metrics rate limiter.
+     * @param key key
+     * @param capacity capacity
+     */
     public static void recover(final String key, final Long capacity) {
         if (METRICS_MAP.containsKey(key)) {
             RateLimiterMetrics metrics = METRICS_MAP.get(key);

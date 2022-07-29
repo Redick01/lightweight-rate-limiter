@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class CloudZookeeperTestController {
 
+    /**
+     * api1.
+     * @param request {@link Request}
+     * @return response
+     */
     @PostMapping("/cloud-zk-rate/test1")
     @RateLimiter(key = "zk-rate-test1", clazz = RateLimiterResponse1.class)
     public Response<String> test1(@RequestBody Request request) {
@@ -23,6 +28,11 @@ public class CloudZookeeperTestController {
         return new Response<>("0000", "成功", "success");
     }
 
+    /**
+     * api2.
+     * @param request {@link Request}
+     * @return Response
+     */
     @PostMapping("/cloud-zk-rate/test2")
     @RateLimiter(key = "'/zk-rate/test2:' + #args[0].userId", clazz = RateLimiterResponse1.class)
     public Response<String> test2(@RequestBody Request request) {

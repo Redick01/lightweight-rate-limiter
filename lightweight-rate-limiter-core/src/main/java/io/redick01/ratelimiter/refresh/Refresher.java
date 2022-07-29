@@ -8,9 +8,9 @@ import io.redick01.ratelimiter.common.enums.ConfigFileTypeEnum;
 public interface Refresher {
 
     /**
-     * refresh rate limiter config
+     * refresh rate limiter config.
      * @param content config
      * @param fileType config file type
      */
-    void refresh(final String content, final ConfigFileTypeEnum fileType);
+    void refresh(String content, ConfigFileTypeEnum fileType);
 }

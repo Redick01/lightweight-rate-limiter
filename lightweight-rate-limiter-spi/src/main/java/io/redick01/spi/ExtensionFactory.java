@@ -1,14 +1,14 @@
 package io.redick01.spi;
 
 /**
- * @author liupenghui
- *  2021/12/24 3:13 下午
+ * @author Redick01
  */
 @SPI("spi")
 public interface ExtensionFactory {
 
     /**
-     * 获取扩展
+     * get extension.
+     *
      * @param key key
      * @param clazz Class
      * @param <T> type

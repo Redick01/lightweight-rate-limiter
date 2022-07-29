@@ -30,10 +30,18 @@ public class RateLimiterInterceptor {
     @Resource
     private RateLimiterHandler rateLimiterHandler;
 
-
+    /**
+     * rate limiter pointcut.
+     */
     @Pointcut("@annotation(io.redick01.ratelimiter.annotation.RateLimiter)")
-    public void pointcut() {}
+    public void pointcut() { }
 
+    /**
+     * aop around.
+     * @param joinPoint pointcut
+     * @return is allowed
+     * @throws Throwable {@link Throwable}
+     */
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
@@ -53,12 +61,11 @@ public class RateLimiterInterceptor {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.info("RateLimiter Exception", e);
         }
         return joinPoint.proceed();
     }
-
 
     private Method getMethod(ProceedingJoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
@@ -66,7 +73,8 @@ public class RateLimiterInterceptor {
         return methodSignature.getMethod();
     }
 
-    private Object rateLimitResponse(Class<?> clazz, Method method, Object[] args, String key) throws InstantiationException, IllegalAccessException {
+    private Object rateLimitResponse(Class<?> clazz, Method method, Object[] args, String key) throws
+        InstantiationException, IllegalAccessException {
         RateLimitCallback<?> callback = (RateLimitCallback<?>) Singleton.INST.get(clazz);
         if (Objects.isNull(callback)) {
             callback = (RateLimitCallback<?>) clazz.newInstance();
@@ -74,9 +82,10 @@ public class RateLimiterInterceptor {
         }
         Object result = callback.rateLimitReturn(args, key);
         Class<?> returnClass = method.getReturnType();
-        if(result.getClass() != returnClass &&
-                !returnClass.isAssignableFrom(result.getClass())){
-            String msg = String.format("wrong return type of method. methodName: [%s] required: [%s], input: [%s]",method.getName(),returnClass,result.getClass());
+        if (result.getClass() != returnClass
+            && !returnClass.isAssignableFrom(result.getClass())) {
+            String msg = String.format("wrong return type of method. methodName: [%s] required: [%s]"
+                + ", input: [%s]", method.getName(), returnClass, result.getClass());
             throw new RuntimeException(msg);
         }
         return result;

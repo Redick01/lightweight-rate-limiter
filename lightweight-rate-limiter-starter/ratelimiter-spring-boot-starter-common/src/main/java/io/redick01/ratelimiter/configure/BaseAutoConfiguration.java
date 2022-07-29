@@ -21,35 +21,61 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy
 public class BaseAutoConfiguration {
 
+    /**
+     * RedisTemplate init bean.
+     * @param rtProperties {@link RtProperties}
+     * @return RedisTemplateInitialization
+     */
     @Bean
     @ConditionalOnMissingBean
     public RedisTemplateInitialization redisTemplateInitialization(RtProperties rtProperties) {
         return new RedisTemplateInitialization(rtProperties);
     }
 
+    /**
+     * rate limiter registry bean.
+     * @param rtProperties {@link RtProperties}
+     * @return RateLimiterRegistry
+     */
     @Bean
     @ConditionalOnMissingBean
     public RateLimiterRegistry rateLimiterRegistry(RtProperties rtProperties) {
         return new RateLimiterRegistry(rtProperties);
     }
 
+    /**
+     * {@link RateLimiterHandler} bean.
+     * @return RateLimiterHandler bean
+     */
     @Bean
     @ConditionalOnMissingBean
     public RateLimiterHandler rateLimiterHandler() {
         return new RateLimiterHandler();
     }
 
+    /**
+     * {@link RateLimiterInterceptor} bean.
+     * @return RateLimiterInterceptor
+     */
     @Bean
     @ConditionalOnMissingBean
     public RateLimiterInterceptor rateLimiterInterceptor() {
         return new RateLimiterInterceptor();
     }
 
+    /**
+     * {@link RateLimiterBanner} bean.
+     * @return RateLimiterBanner
+     */
     @Bean
     public RateLimiterBanner rateLimiterBanner() {
         return new RateLimiterBanner();
     }
 
+    /**
+     * {@link Monitor} bean.
+     * @return Monitor
+     */
     @Bean
     @ConditionalOnMissingBean
     public Monitor monitor() {

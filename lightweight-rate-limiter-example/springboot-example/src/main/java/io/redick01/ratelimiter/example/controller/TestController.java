@@ -13,15 +13,24 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author Redick01
  */
-@RestController()
+@RestController
 public class TestController {
 
+    /**
+     * api1.
+     * @return response
+     */
     @GetMapping("/Rate/rateTest")
     @RateLimiter(key = "key1", clazz = RateLimiterResponse.class)
     public String rateTest() {
         return "111";
     }
 
+    /**
+     * api2.
+     * @param request {@link Request}
+     * @return Response
+     */
     @PostMapping("/Rate/spelTest")
     @RateLimiter(key = "'/Rate/spelTest:' + #args[0].userId", clazz = RateLimiterResponse1.class)
     public Response<String> spelTest(@RequestBody Request request) {

@@ -21,12 +21,11 @@ public class EtcdConfigEnvironmentProcessor implements EnvironmentPostProcessor,
 
     public static final String ETCD_PROPERTY_SOURCE_NAME = "etcdPropertySource";
 
-
     @SneakyThrows
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         RtProperties rtProperties = new RtProperties();
-        PropertiesBinder.bindDtpProperties(environment, rtProperties);
+        PropertiesBinder.bindRtProperties(environment, rtProperties);
         RtProperties.Etcd etcd = rtProperties.getEtcd();
         val properties = EtcdUtil.getConfigContent(etcd, rtProperties.getConfigType());
         if (!checkPropertyExist(environment)) {

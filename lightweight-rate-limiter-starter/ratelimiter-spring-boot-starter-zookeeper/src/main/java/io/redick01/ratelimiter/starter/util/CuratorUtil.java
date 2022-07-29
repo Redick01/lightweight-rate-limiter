@@ -2,6 +2,7 @@ package io.redick01.ratelimiter.starter.util;
 
 import com.google.common.collect.Maps;
 import io.redick01.ratelimiter.common.config.RtProperties;
+import io.redick01.ratelimiter.common.enums.ConfigFileTypeEnum;
 import io.redick01.ratelimiter.parser.config.ConfigParser;
 import io.redick01.spi.ExtensionLoader;
 import lombok.SneakyThrows;
@@ -15,8 +16,6 @@ import org.apache.curator.framework.state.ConnectionState;
 import org.apache.curator.framework.state.ConnectionStateListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.ZKPaths;
-import static io.redick01.ratelimiter.common.enums.ConfigFileTypeEnum.PROPERTIES;
-import static io.redick01.ratelimiter.common.enums.ConfigFileTypeEnum.JSON;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -28,23 +27,29 @@ import java.util.concurrent.CountDownLatch;
  * @author Redick01
  */
 @Slf4j
-public class CuratorUtil {
+public final class CuratorUtil {
 
     private static CuratorFramework curatorFramework;
 
     private static final CountDownLatch COUNT_DOWN_LATCH = new CountDownLatch(1);
 
-    private CuratorUtil() {}
+    private CuratorUtil() { }
 
+    /**
+     * create {@link CuratorFramework}.
+     * @param rtProperties {@link RtProperties}
+     * @return CuratorFramework
+     */
     public static CuratorFramework getCuratorFramework(RtProperties rtProperties) {
         if (curatorFramework == null) {
             RtProperties.Zookeeper zookeeper = rtProperties.getZookeeper();
             curatorFramework = CuratorFrameworkFactory.newClient(zookeeper.getZkConnectStr(),
-                    new ExponentialBackoffRetry(1000, 3));
+                new ExponentialBackoffRetry(1000, 3));
             final ConnectionStateListener connectionStateListener = (client, newState) -> {
                 if (newState == ConnectionState.CONNECTED) {
                     COUNT_DOWN_LATCH.countDown();
-                }};
+                }
+            };
             curatorFramework.getConnectionStateListenable().addListener(connectionStateListener);
             curatorFramework.start();
             try {
@@ -57,12 +62,22 @@ public class CuratorUtil {
         return curatorFramework;
     }
 
+    /**
+     * get zk node path.
+     * @param rtProperties {@link RtProperties}
+     * @return zk node path
+     */
     public static String nodePath(RtProperties rtProperties) {
         RtProperties.Zookeeper zookeeper = rtProperties.getZookeeper();
         return ZKPaths.makePath(ZKPaths.makePath(zookeeper.getRootNode(),
                 zookeeper.getConfigVersion()), zookeeper.getNode());
     }
 
+    /**
+     * zk config info bind to {@link Map}.
+     * @param rtProperties {@link RtProperties}
+     * @return Map
+     */
     @SneakyThrows
     public static Map<Object, Object> genPropertiesMap(RtProperties rtProperties) {
 
@@ -70,9 +85,9 @@ public class CuratorUtil {
         String nodePath = nodePath(rtProperties);
 
         Map<Object, Object> result = Maps.newHashMap();
-        if (PROPERTIES.getValue().equalsIgnoreCase(rtProperties.getConfigType().trim())) {
+        if (ConfigFileTypeEnum.PROPERTIES.getValue().equalsIgnoreCase(rtProperties.getConfigType().trim())) {
             result = genPropertiesTypeMap(nodePath, curatorFramework);
-        } else if (JSON.getValue().equalsIgnoreCase(rtProperties.getConfigType().trim())) {
+        } else if (ConfigFileTypeEnum.JSON.getValue().equalsIgnoreCase(rtProperties.getConfigType().trim())) {
             nodePath = ZKPaths.makePath(nodePath, rtProperties.getZookeeper().getConfigKey());
             String value = getVal(nodePath, curatorFramework);
             result = ExtensionLoader.getExtensionLoader(ConfigParser.class).getJoin(rtProperties.getConfigType()).doParse(value);

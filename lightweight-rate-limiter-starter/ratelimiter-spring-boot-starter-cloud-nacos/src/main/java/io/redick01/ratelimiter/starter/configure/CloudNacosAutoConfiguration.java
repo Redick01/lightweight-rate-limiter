@@ -13,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(NacosConfigProperties.class)
 public class CloudNacosAutoConfiguration {
 
+    /**
+     * {@link CloudNacosRefresher}.
+     * @return CloudNacosRefresher
+     */
     @Bean
     public CloudNacosRefresher cloudNacosRefresher() {
         return new CloudNacosRefresher();

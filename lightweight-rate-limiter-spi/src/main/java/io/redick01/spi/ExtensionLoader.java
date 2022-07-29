@@ -13,46 +13,45 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author liupenghui
- *  2021/12/24 3:22 下午
+ * @author Redick01
  */
 @Slf4j
 @SuppressWarnings("all")
 public class ExtensionLoader<T> {
 
     /**
-     * SPI配置扩展的文件位置
-     * 扩展文件命名格式为 SPI接口的全路径名，如：com.redick.spi.test.TestSPI
+     * SPI配置扩展的文件位置.
+     * 扩展文件命名格式为 SPI接口的全路径名，如：com.redick.spi.test.TestSPI.
      */
     private static final String DEFAULT_DIRECTORY = "META-INF/ratelimiter/";
 
     /**
-     * 扩展接口 {@link Class}
-     */
-    private final Class<T> tClass;
-
-    /**
-     * 扩展接口 和 扩展加载器 {@link ExtensionLoader} 的缓存
+     * 扩展接口 和 扩展加载器 {@link ExtensionLoader} 的缓存.
      */
     private static final Map<Class<?>, ExtensionLoader<?>> MAP = new ConcurrentHashMap<>();
 
     /**
-     * 保存 "扩展" 实现的 {@link Class}
+     * 扩展接口 {@link Class}.
+     */
+    private final Class<T> tClass;
+
+    /**
+     * 保存 "扩展" 实现的 {@link Class}.
      */
     private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<>();
 
     /**
-     * "扩展名" 对应的 保存扩展对象的Holder的缓存
+     * "扩展名" 对应的 保存扩展对象的Holder的缓存.
      */
     private final Map<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<>();
 
     /**
-     * 扩展class 和 扩展点的实现对象的缓存
+     * 扩展class 和 扩展点的实现对象的缓存.
      */
     private final Map<Class<?>, Object> joinInstances = new ConcurrentHashMap<>();
 
     /**
-     * 扩展点默认的 "名称" 缓存
+     * 扩展点默认的 "名称" 缓存.
      */
     private String cacheDefaultName;
 
@@ -62,7 +61,11 @@ public class ExtensionLoader<T> {
             ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getExtensionClasses();
         }
     }
-    
+
+    /**
+     * get default spi object.
+     * @return default spi object.
+     */
     public T getDefaultJoin() {
         getExtensionClasses();
         if (StringUtils.isNotBlank(cacheDefaultName)) {
@@ -71,6 +74,11 @@ public class ExtensionLoader<T> {
         return null;
     }
 
+    /**
+     * get spi object.
+     * @param cacheDefaultName neme
+     * @return spi object.
+     */
     public T getJoin(String cacheDefaultName) {
         // 扩展名 文件中的key
         if (StringUtils.isBlank(cacheDefaultName)) {
@@ -99,6 +107,11 @@ public class ExtensionLoader<T> {
         return (T) value;
     }
 
+    /**
+     * create extension object.
+     * @param cacheDefaultName name
+     * @return extension object.
+     */
     private Object createExtension(String cacheDefaultName) {
         // 根据扩展名字获取扩展的Class，从Holder中获取 key-value缓存，然后根据名字从Map中获取扩展实现Class
         Class<?> aClass = getExtensionClasses().get(cacheDefaultName);
@@ -120,7 +133,13 @@ public class ExtensionLoader<T> {
         return o;
     }
 
-    public static<T> ExtensionLoader<T> getExtensionLoader(final Class<T> tClass) {
+    /**
+     * get ExtensionLoader.
+     * @param tClass spi class
+     * @param <T> T
+     * @return ExtensionLoader
+     */
+    public static <T> ExtensionLoader<T> getExtensionLoader(final Class<T> tClass) {
         // 参数非空校验
         if (null == tClass) {
             throw new NullPointerException("tClass is null !");
@@ -142,6 +161,11 @@ public class ExtensionLoader<T> {
         return (ExtensionLoader<T>) MAP.get(tClass);
     }
 
+    /**
+     * get extension classes.
+     *
+     * @return extension classes
+     */
     public Map<String, Class<?>> getExtensionClasses() {
         // 扩区SPI扩展实现的缓存，对应的就是扩展文件中的 key - value
         Map<String, Class<?>> classes = cachedClasses.getT();
@@ -159,6 +183,10 @@ public class ExtensionLoader<T> {
         return classes;
     }
 
+    /**
+     * load extension class.
+     * @return class container
+     */
     public Map<String, Class<?>> loadExtensionClass() {
         // 扩展接口tClass，必须包含SPI注解
         SPI annotation = tClass.getAnnotation(SPI.class);
@@ -196,6 +224,12 @@ public class ExtensionLoader<T> {
         }
     }
 
+    /**
+     * load resource.
+     *
+     * @param classes class container
+     * @param url {@link URL}
+     */
     private void loadResources(Map<String, Class<?>> classes, URL url) {
         // 读取文件到Properties，遍历Properties，得到配置文件key（名字）和value（扩展实现的Class）
         try (InputStream inputStream = url.openStream()) {
@@ -220,18 +254,27 @@ public class ExtensionLoader<T> {
         }
     }
 
+    /**
+     * load class.
+     *
+     * @param classes class container
+     * @param name name
+     * @param classPath spi path
+     * @throws ClassNotFoundException {@link ClassNotFoundException}
+     */
     private void loadClass(Map<String, Class<?>> classes, String name, String classPath) throws ClassNotFoundException {
         // 反射创建扩展实现的Class
         Class<?> subClass = Class.forName(classPath);
         // 扩展实现的Class要是扩展接口的实现类
         if (!tClass.isAssignableFrom(subClass)) {
-            throw new IllegalArgumentException("load extension class error " + subClass + " not sub type of " + tClass);
+            throw new IllegalArgumentException("load extension class error " + subClass
+                + " not sub type of " + tClass);
         }
         // 扩展实现要有Join注解
         Join annotation = subClass.getAnnotation(Join.class);
         if (null == annotation) {
-            throw new IllegalArgumentException("load extension class error " + subClass + " without @Join" +
-                    "Annotation");
+            throw new IllegalArgumentException("load extension class error " + subClass
+                + " without @Join" + "Annotation");
         }
         // 缓存扩展实现Class
         Class<?> oldClass = classes.get(name);
@@ -242,14 +285,26 @@ public class ExtensionLoader<T> {
         }
     }
 
+    /**
+     * SPI object holder.
+     * @param <T> object
+     */
     public static class Holder<T> {
 
         private volatile T t;
 
+        /**
+         * get spi object.
+         * @return spi object
+         */
         public T getT() {
             return t;
         }
 
+        /**
+         * set spi object.
+         * @param t spi object
+         */
         public void setT(T t) {
             this.t = t;
         }

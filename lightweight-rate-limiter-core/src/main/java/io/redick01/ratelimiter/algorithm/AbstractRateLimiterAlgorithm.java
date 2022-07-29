@@ -12,9 +12,7 @@ import java.util.List;
 /**
  * @author Redick01
  */
-public abstract class AbstractRateLimiterAlgorithm implements RateLimiterAlgorithm<List<Long>>{
-
-
+public abstract class AbstractRateLimiterAlgorithm implements RateLimiterAlgorithm<List<Long>> {
 
     private final String scriptName;
 

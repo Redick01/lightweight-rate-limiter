@@ -16,21 +16,21 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SpelScriptParser implements ScriptParser {
 
     /**
-     * spel mark
+     * spel mark.
      */
     private static final String SPEL_FLAG_1 = "#";
 
     /**
-     * spel mark
+     * spel mark.
      */
     private static final String SPEL_FLAG_2 = "'";
 
     /**
-     * parmameter name
+     * parmameter name.
      */
     private static final String ARGS = "args";
 
-    private final ConcurrentHashMap<String, Expression> RATE_KEY_CACHE = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Expression> RATE_KEY_CACHE = new ConcurrentHashMap<>();
 
     @Override
     public String getExpressionValue(String expressKey, Object[] arguments) {
@@ -60,7 +60,7 @@ public class SpelScriptParser implements ScriptParser {
     @Override
     public String getPrefix(String script) {
         String prefix = script;
-        if(isScript(script)){
+        if (isScript(script)) {
             prefix = script.substring(0, script.lastIndexOf(SPEL_FLAG_2) + 1);
         }
         return prefix;

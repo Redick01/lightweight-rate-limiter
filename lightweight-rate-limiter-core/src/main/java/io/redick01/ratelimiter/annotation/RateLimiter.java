@@ -1,6 +1,11 @@
 package io.redick01.ratelimiter.annotation;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author Redick01
@@ -12,12 +17,14 @@ import java.lang.annotation.*;
 public @interface RateLimiter {
 
     /**
-     * rate limit key
+     * return rate limit key.
+     * @return rate limit key
      */
     String key();
 
     /**
-     * rate limit callback
+     * rate limit callback class.
+     * @return class
      */
     Class<?> clazz();
 }

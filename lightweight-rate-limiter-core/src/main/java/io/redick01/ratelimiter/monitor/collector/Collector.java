@@ -7,5 +7,11 @@ import io.redick01.ratelimiter.monitor.RateLimiterMetrics;
  */
 public interface Collector {
 
-    void collect(final String appName, final RateLimiterMetrics rateLimiterMetrics);
+    /**
+     * collect metrics.
+     *
+     * @param appName application name
+     * @param rateLimiterMetrics {@link RateLimiterMetrics}
+     */
+    void collect(String appName, RateLimiterMetrics rateLimiterMetrics);
 }

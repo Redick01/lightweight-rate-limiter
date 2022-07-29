@@ -5,7 +5,12 @@ import com.google.common.collect.Lists;
 import io.redick01.ratelimiter.common.config.RtProperties;
 import io.redick01.ratelimiter.common.enums.Singleton;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-import org.springframework.data.redis.connection.*;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
+import org.springframework.data.redis.connection.RedisConfiguration;
+import org.springframework.data.redis.connection.RedisNode;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
@@ -24,7 +29,6 @@ import java.util.Objects;
  * @author Redick01
  */
 public class RedisTemplateInitialization {
-
 
     public RedisTemplateInitialization(RtProperties rtProperties) {
         if (Objects.nonNull(rtProperties) && Objects.nonNull(rtProperties.getRedisConfig())) {
@@ -51,21 +55,20 @@ public class RedisTemplateInitialization {
         ((RedisStandaloneConfiguration) redisConfiguration).setDatabase(redisConfig.getDatabase());
         ((RedisStandaloneConfiguration) redisConfiguration).setPassword(redisConfig.getPassword());
         //连接池配置
-        GenericObjectPoolConfig<?> genericObjectPoolConfig =
-                new GenericObjectPoolConfig<>();
+        GenericObjectPoolConfig<?> genericObjectPoolConfig = new GenericObjectPoolConfig<>();
         genericObjectPoolConfig.setMaxIdle(redisConfig.getMaxIdle());
         genericObjectPoolConfig.setMinIdle(redisConfig.getMinIdle());
         genericObjectPoolConfig.setMaxTotal(redisConfig.getMaxActive());
         //redis客户端配置
-        LettucePoolingClientConfiguration.LettucePoolingClientConfigurationBuilder
-                builder =  LettucePoolingClientConfiguration.builder().
-                commandTimeout(Duration.ofMillis(10000));
+        LettucePoolingClientConfiguration.LettucePoolingClientConfigurationBuilder builder = LettucePoolingClientConfiguration
+            .builder()
+            .commandTimeout(Duration.ofMillis(10000));
         builder.shutdownTimeout(Duration.ofMillis(10000));
         builder.poolConfig(genericObjectPoolConfig);
         LettuceClientConfiguration lettuceClientConfiguration = builder.build();
         //根据配置和客户端配置创建连接
         LettuceConnectionFactory lettuceConnectionFactory = new
-                LettuceConnectionFactory(redisConfiguration,lettuceClientConfiguration);
+                LettuceConnectionFactory(redisConfiguration, lettuceClientConfiguration);
         lettuceConnectionFactory.afterPropertiesSet();
         return lettuceConnectionFactory;
     }

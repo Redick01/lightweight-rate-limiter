@@ -13,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(value = Client.class)
 public class EtcdAutoConfiguration {
 
+    /**
+     * {@link EtcdRefresher}.
+     * @return EtcdRefresher
+     */
     @Bean
     public EtcdRefresher etcdRefresher() {
         return new EtcdRefresher();

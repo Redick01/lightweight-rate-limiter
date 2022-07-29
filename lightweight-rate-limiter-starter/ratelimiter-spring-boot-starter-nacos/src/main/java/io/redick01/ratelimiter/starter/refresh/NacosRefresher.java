@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 @SuppressWarnings("all")
 public class NacosRefresher extends AbstractRefresher implements InitializingBean, Listener {
 
-    private final ExecutorService EXECUTOR = Executors.newCachedThreadPool();
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     private ConfigFileTypeEnum configFileType;
 
@@ -36,7 +36,6 @@ public class NacosRefresher extends AbstractRefresher implements InitializingBea
 
     @Resource
     private Environment environment;
-
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -53,7 +52,7 @@ public class NacosRefresher extends AbstractRefresher implements InitializingBea
 
     @Override
     public Executor getExecutor() {
-        return EXECUTOR;
+        return executor;
     }
 
     @Override

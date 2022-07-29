@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApolloAutoConfiguration {
 
+    /**
+     * {@link ApolloRefresher}.
+     * @return ApolloRefresher
+     */
     @Bean
     public ApolloRefresher apolloAutoConfiguration() {
         return new ApolloRefresher();

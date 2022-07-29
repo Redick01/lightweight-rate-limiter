@@ -3,8 +3,6 @@ package io.redick01.ratelimiter.monitor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * @author Redick01
  */

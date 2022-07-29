@@ -16,7 +16,6 @@ import java.util.UUID;
 @Join
 public class ConcurrentRateLimiterAlgorithm extends AbstractRateLimiterAlgorithm {
 
-
     public ConcurrentRateLimiterAlgorithm() {
         super(RateLimitEnum.CONCURRENT.getScriptName());
     }

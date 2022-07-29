@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(value = com.alibaba.nacos.api.config.ConfigService.class)
 public class NacosAutoConfiguration {
 
+    /**
+     * {@link NacosRefresher}.
+     * @return NacosRefresher
+     */
     @Bean
     public NacosRefresher nacosRefresher() {
         return new NacosRefresher();

@@ -7,13 +7,20 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class CountHolder {
 
-    private final AtomicInteger COUNT = new AtomicInteger(0);
+    private final AtomicInteger count = new AtomicInteger(0);
 
+    /**
+     * metrics count.
+     */
     public void add() {
-        COUNT.addAndGet(1);
+        count.addAndGet(1);
     }
 
+    /**
+     * get metrics count.
+     * @return count
+     */
     public Integer getCount() {
-        return this.COUNT.get();
+        return this.count.get();
     }
 }

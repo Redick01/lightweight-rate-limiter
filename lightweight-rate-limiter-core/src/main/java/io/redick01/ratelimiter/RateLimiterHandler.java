@@ -20,7 +20,12 @@ import java.util.List;
 @SuppressWarnings("all")
 public class RateLimiterHandler {
 
-
+    /**
+     * the rate limiter core handle.
+     * @param rateLimiterConfig {@link RateLimiterConfigProperties}
+     * @param args parameter
+     * @return is allowed
+     */
     public boolean isAllowed(final RateLimiterConfigProperties rateLimiterConfig, final Object[] args) {
         RateLimiterAlgorithm<?> rateLimiterAlgorithm = ExtensionLoader
                 .getExtensionLoader(RateLimiterAlgorithm.class)
