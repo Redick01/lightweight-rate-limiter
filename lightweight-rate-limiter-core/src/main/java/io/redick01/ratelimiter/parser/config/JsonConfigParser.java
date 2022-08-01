@@ -41,6 +41,12 @@ public class JsonConfigParser implements ConfigParser {
         return result;
     }
 
+    /**
+     * config format
+     * @param result result
+     * @param dataMap dataMap
+     * @param prefix prefix
+     */
     private void flatMap(Map<Object, Object> result, Map<String, Object> dataMap, String prefix) {
 
         if (MapUtil.isEmpty(dataMap)) {
@@ -51,20 +57,24 @@ public class JsonConfigParser implements ConfigParser {
             String fullKey = genFullKey(prefix, k);
             if (v instanceof Map) {
                 flatMap(result, (Map<String, Object>) v, fullKey);
-                return;
             } else if (v instanceof Collection) {
                 int count = 0;
                 for (Object obj : (Collection<Object>) v) {
                     String kk = "[" + count++ + "]";
                     flatMap(result, Collections.singletonMap(kk, obj), fullKey);
                 }
-                return;
+            } else {
+                result.put(fullKey, v);
             }
-
-            result.put(fullKey, v);
         });
     }
 
+    /**
+     * get config key.
+     * @param prefix prefix
+     * @param key key
+     * @return config key
+     */
     private String genFullKey(String prefix, String key) {
         if (StringUtils.isBlank(prefix)) {
             return key;

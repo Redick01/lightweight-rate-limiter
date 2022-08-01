@@ -1,17 +1,19 @@
 package io.redick01.ratelimiter.monitor;
 
+import com.google.common.collect.Maps;
 import io.redick01.ratelimiter.common.config.RateLimiterConfigProperties;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Redick01
  */
-public class MetricsRegistry {
+public final class MetricsRegistry {
 
-    public static final Map<String, RateLimiterMetrics> METRICS_MAP = new ConcurrentHashMap<>(16);
+    private MetricsRegistry() { }
+
+    public static final Map<String, RateLimiterMetrics> METRICS_MAP = Maps.newConcurrentMap();
 
     /**
      * refresh metrics container.
@@ -20,7 +22,8 @@ public class MetricsRegistry {
      * @param tokensLeft left token
      * @param properties rate limiter config
      */
-    public static void refresh(final String key, final String realKey, final List<Long> tokensLeft, final RateLimiterConfigProperties properties) {
+    public static void refresh(final String key, final String realKey, final List<Long> tokensLeft,
+        final RateLimiterConfigProperties properties) {
         if (METRICS_MAP.containsKey(key)) {
             RateLimiterMetrics metrics = METRICS_MAP.get(key);
             metrics.setRealKey(realKey);

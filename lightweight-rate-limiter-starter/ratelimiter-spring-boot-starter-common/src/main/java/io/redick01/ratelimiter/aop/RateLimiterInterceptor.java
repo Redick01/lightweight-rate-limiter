@@ -49,7 +49,8 @@ public class RateLimiterInterceptor {
             if (Objects.nonNull(method.getAnnotation(RateLimiter.class))) {
                 String rateLimiterKey = method.getAnnotation(RateLimiter.class).key();
                 if (StringUtils.isNotBlank(rateLimiterKey)) {
-                    RateLimiterConfigProperties rateLimiterConfig = RateLimiterRegistry.RATE_LIMITER_REGISTRY.get(rateLimiterKey);
+                    RateLimiterConfigProperties rateLimiterConfig =
+                        RateLimiterRegistry.RATE_LIMITER_REGISTRY.get(rateLimiterKey);
                     if (Objects.nonNull(rateLimiterConfig)) {
                         if (!rateLimiterHandler.isAllowed(rateLimiterConfig, joinPoint.getArgs())) {
                             log.info("touch off rate limit !");
@@ -67,12 +68,27 @@ public class RateLimiterInterceptor {
         return joinPoint.proceed();
     }
 
+    /**
+     * get {@link Method}.
+     * @param joinPoint {@link ProceedingJoinPoint}
+     * @return Method
+     */
     private Method getMethod(ProceedingJoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         return methodSignature.getMethod();
     }
 
+    /**
+     * rate limiter call back
+     * @param clazz {@link Class}
+     * @param method {@link Method}
+     * @param args parameter
+     * @param key key
+     * @return Object
+     * @throws InstantiationException {@link InstantiationException}
+     * @throws IllegalAccessException {@link IllegalAccessException}
+     */
     private Object rateLimitResponse(Class<?> clazz, Method method, Object[] args, String key) throws
         InstantiationException, IllegalAccessException {
         RateLimitCallback<?> callback = (RateLimitCallback<?>) Singleton.INST.get(clazz);

@@ -52,11 +52,17 @@ public class RateLimiterHandler {
             rateLimiterAlgorithm.callback(redisScript, keys);
             List<Long> finalResult = result;
             new Thread(() -> {
-                MetricsRegistry.refresh(rateLimiterConfig.getRateLimiterKey(), keys.get(0), finalResult, rateLimiterConfig);
+                MetricsRegistry.refresh(rateLimiterConfig.getRateLimiterKey(), keys.get(0),
+                    finalResult, rateLimiterConfig);
             }).start();
         }
     }
 
+    /**
+     * double to String
+     * @param param param
+     * @return String
+     */
     private String doubleToString(final double param) {
         return String.valueOf(param);
     }

@@ -25,7 +25,8 @@ public abstract class AbstractRefresher implements Refresher {
     @Override
     public void refresh(final String content, final ConfigFileTypeEnum fileType) {
         try {
-            ConfigParser configParser = ExtensionLoader.getExtensionLoader(ConfigParser.class).getJoin(fileType.getValue());
+            ConfigParser configParser = ExtensionLoader.getExtensionLoader(ConfigParser.class)
+                .getJoin(fileType.getValue());
             Map<Object, Object> properties = configParser.doParse(content);
             doRefresh(properties);
         } catch (Exception e) {
@@ -45,6 +46,10 @@ public abstract class AbstractRefresher implements Refresher {
         RateLimiterRegistry.refresh(rtProperties);
     }
 
+    /**
+     * refresh rate limiter registry.
+     * @param properties properties
+     */
     protected void doRefresh(final Map<Object, Object> properties) {
         if (MapUtil.isEmpty(properties)) {
             log.error("config properties is empty, rate limiter refresh failed.");

@@ -30,10 +30,20 @@ public class MetricsCollector implements Collector {
         Metrics.gauge(metricName("reject.count"), tags, rateLimiterMetrics, this::getRejectCount);
     }
 
+    /**
+     * get metric name.
+     * @param name name
+     * @return metric name
+     */
     private static String metricName(String name) {
         return String.join(".", METRIC_NAME_PREFIX, name);
     }
 
+    /**
+     * get left token.
+     * @param rateLimiterMetrics {@link RateLimiterMetrics}
+     * @return left token count
+     */
     private double tokensLeft(RateLimiterMetrics rateLimiterMetrics) {
         if ("leaky_bucket_rate_limiter".equals(rateLimiterMetrics.getAlgorithmName())) {
             return rateLimiterMetrics.getTokensLeft();
@@ -41,6 +51,11 @@ public class MetricsCollector implements Collector {
         return rateLimiterMetrics.getCapacity() - rateLimiterMetrics.getTokensLeft();
     }
 
+    /**
+     * get reject count.
+     * @param rateLimiterMetrics {@link RateLimiterMetrics}
+     * @return reject count
+     */
     private Integer getRejectCount(RateLimiterMetrics rateLimiterMetrics) {
         return rateLimiterMetrics.getRejectCount().getCount();
     }

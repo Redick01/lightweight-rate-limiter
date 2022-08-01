@@ -50,6 +50,11 @@ public class RedisTemplateInitialization {
         }
     }
 
+    /**
+     * create lettuce connection factory.
+     * @param redisConfig {@link io.redick01.ratelimiter.common.config.RtProperties.RedisConfig}
+     * @return LettuceConnectionFactory
+     */
     private LettuceConnectionFactory createLettuceConnectionFactory(final RtProperties.RedisConfig redisConfig) {
         RedisConfiguration redisConfiguration = new RedisStandaloneConfiguration(redisConfig.getUrl());
         ((RedisStandaloneConfiguration) redisConfiguration).setDatabase(redisConfig.getDatabase());
@@ -60,10 +65,11 @@ public class RedisTemplateInitialization {
         genericObjectPoolConfig.setMinIdle(redisConfig.getMinIdle());
         genericObjectPoolConfig.setMaxTotal(redisConfig.getMaxActive());
         //redis客户端配置
-        LettucePoolingClientConfiguration.LettucePoolingClientConfigurationBuilder builder = LettucePoolingClientConfiguration
+        LettucePoolingClientConfiguration.LettucePoolingClientConfigurationBuilder builder =
+            LettucePoolingClientConfiguration
             .builder()
-            .commandTimeout(Duration.ofMillis(10000));
-        builder.shutdownTimeout(Duration.ofMillis(10000));
+            .commandTimeout(Duration.ofMillis(redisConfig.getCommandTimeout()));
+        builder.shutdownTimeout(Duration.ofMillis(redisConfig.getShutdownTimeout()));
         builder.poolConfig(genericObjectPoolConfig);
         LettuceClientConfiguration lettuceClientConfiguration = builder.build();
         //根据配置和客户端配置创建连接
@@ -73,10 +79,11 @@ public class RedisTemplateInitialization {
         return lettuceConnectionFactory;
     }
 
-    private LettuceClientConfiguration getLettuceClientConfiguration(final RtProperties.RedisConfig rateLimiterConfig) {
-        return LettucePoolingClientConfiguration.builder().poolConfig(getPoolConfig(rateLimiterConfig)).build();
-    }
-
+    /**
+     * get pool.
+     * @param redisConfig {@link io.redick01.ratelimiter.common.config.RtProperties.RedisConfig}
+     * @return GenericObjectPoolConfig
+     */
     private GenericObjectPoolConfig<?> getPoolConfig(final RtProperties.RedisConfig redisConfig) {
         GenericObjectPoolConfig<?> config = new GenericObjectPoolConfig<>();
         config.setMaxTotal(redisConfig.getMaxActive());
@@ -88,6 +95,11 @@ public class RedisTemplateInitialization {
         return config;
     }
 
+    /**
+     * redisSentinelConfiguration.
+     * @param redisConfig {@link io.redick01.ratelimiter.common.config.RtProperties.RedisConfig}
+     * @return redisSentinelConfiguration
+     */
     private RedisSentinelConfiguration redisSentinelConfiguration(final RtProperties.RedisConfig redisConfig) {
         RedisSentinelConfiguration config = new RedisSentinelConfiguration();
         config.master(redisConfig.getMaster());
@@ -99,6 +111,11 @@ public class RedisTemplateInitialization {
         return config;
     }
 
+    /**
+     * redisClusterConfiguration.
+     * @param redisConfig {@link io.redick01.ratelimiter.common.config.RtProperties.RedisConfig}
+     * @return redisClusterConfiguration
+     */
     private RedisClusterConfiguration redisClusterConfiguration(final RtProperties.RedisConfig redisConfig) {
         RedisClusterConfiguration config = new RedisClusterConfiguration();
         config.setClusterNodes(createRedisNode(redisConfig.getUrl()));
@@ -108,7 +125,13 @@ public class RedisTemplateInitialization {
         return config;
     }
 
-    protected final RedisStandaloneConfiguration redisStandaloneConfiguration(final RtProperties.RedisConfig redisConfig) {
+    /**
+     * redisS tandalone.
+     * @param redisConfig {@link io.redick01.ratelimiter.common.config.RtProperties.RedisConfig}
+     * @return RedisStandaloneConfiguration
+     */
+    protected final RedisStandaloneConfiguration redisStandaloneConfiguration(
+        final RtProperties.RedisConfig redisConfig) {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
         String[] parts = StringUtils.split(redisConfig.getUrl(), ":");
         assert parts != null;
@@ -121,6 +144,11 @@ public class RedisTemplateInitialization {
         return config;
     }
 
+    /**
+     * createRedisNode.
+     * @param url url
+     * @return List<RedisNode>
+     */
     private List<RedisNode> createRedisNode(final String url) {
         List<RedisNode> redisNodes = new ArrayList<>();
         List<String> nodes = Lists.newArrayList(Splitter.on(";").split(url));

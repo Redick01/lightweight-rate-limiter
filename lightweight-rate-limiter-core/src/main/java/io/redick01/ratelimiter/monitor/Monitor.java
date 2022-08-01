@@ -46,9 +46,12 @@ public class Monitor implements ApplicationRunner, Ordered {
                 0, rtProperties.getMonitorInterval(), TimeUnit.SECONDS);
 
         RECOVER_TOKEN_EXECUTOR.scheduleWithFixedDelay(this::recover,
-                3, 60, TimeUnit.SECONDS);
+                0, rtProperties.getRecoverInterval(), TimeUnit.SECONDS);
     }
 
+    /**
+     * collect
+     */
     private void run() {
         if (rtProperties.getEnableMonitor()) {
             log.info("rate limiter metrics begin.");
@@ -59,6 +62,9 @@ public class Monitor implements ApplicationRunner, Ordered {
         }
     }
 
+    /**
+     * recover
+     */
     private void recover() {
         if (rtProperties.getEnableMonitor()) {
             log.info("recover the rate limiter metrics tokens left.");
@@ -75,6 +81,6 @@ public class Monitor implements ApplicationRunner, Ordered {
 
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE + 2;
+        return Ordered.HIGHEST_PRECEDENCE + 1;
     }
 }

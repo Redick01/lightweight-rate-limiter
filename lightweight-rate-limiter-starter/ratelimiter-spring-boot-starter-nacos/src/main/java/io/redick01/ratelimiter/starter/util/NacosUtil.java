@@ -19,7 +19,8 @@ public class NacosUtil {
      * @param configFileTypeEnum {@link ConfigFileTypeEnum}
      * @return nacos config dataId
      */
-    public static String getDataId(RtProperties.Nacos nacos, Environment environment, ConfigFileTypeEnum configFileTypeEnum) {
+    public static String getDataId(RtProperties.Nacos nacos, Environment environment,
+        ConfigFileTypeEnum configFileTypeEnum) {
         String dataId = "";
         if (Objects.nonNull(nacos) && StringUtils.isNotBlank(nacos.getDataId())) {
             dataId = nacos.getDataId();

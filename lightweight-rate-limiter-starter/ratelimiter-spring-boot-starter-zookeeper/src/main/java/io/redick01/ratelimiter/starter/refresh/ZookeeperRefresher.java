@@ -53,6 +53,9 @@ public class ZookeeperRefresher extends AbstractRefresher implements Environment
         log.info("Add listener success, nodePath: {}", nodePath);
     }
 
+    /**
+     * load and refresh config.
+     */
     private void loadAndRefresh() {
         doRefresh(CuratorUtil.genPropertiesMap(rtProperties));
     }

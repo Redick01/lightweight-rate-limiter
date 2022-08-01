@@ -1,5 +1,6 @@
 package io.redick01.spi;
 
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -7,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
@@ -197,12 +197,16 @@ public class ExtensionLoader<T> {
                 cacheDefaultName = v;
             }
         }
-        Map<String, Class<?>> classes = new HashMap<>(16);
+        Map<String, Class<?>> classes = Maps.newHashMap();
         // 从文件加载
         loadDirectory(classes);
         return classes;
     }
 
+    /**
+     * load spi directory.
+     * @param classes class container
+     */
     private void loadDirectory(final Map<String, Class<?>> classes) {
         // 文件名
         String fileName = DEFAULT_DIRECTORY + tClass.getName();

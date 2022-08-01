@@ -31,10 +31,15 @@ public class RtProperties {
 
     private Integer monitorInterval = 5;
 
+    private Integer recoverInterval = 60;
+
     private List<RateLimiterConfigProperties> rateLimiterConfigs;
 
     private RedisConfig redisConfig;
 
+    /**
+     * Zookeeper config.
+     */
     @Data
     public static class Zookeeper {
 
@@ -49,6 +54,9 @@ public class RtProperties {
         private String configKey;
     }
 
+    /**
+     * Nacos config.
+     */
     @Data
     public static class Nacos {
 
@@ -57,12 +65,18 @@ public class RtProperties {
         private String group;
     }
 
+    /**
+     * Apollo config.
+     */
     @Data
     public static class Apollo {
 
         private String namespace;
     }
 
+    /**
+     * Etcd config.
+     */
     @Data
     public static class Etcd {
 
@@ -81,6 +95,9 @@ public class RtProperties {
         private String key;
     }
 
+    /**
+     * Redis config.
+     */
     @Data
     public static class RedisConfig {
 
@@ -122,5 +139,15 @@ public class RtProperties {
          * indefinitely.
          */
         private Duration maxWait = Duration.ofMillis(-1);
+
+        /**
+         * commandTimeout
+         */
+        private int commandTimeout = 10000;
+
+        /**
+         * shutdownTimeout
+         */
+        private int shutdownTimeout = 10000;
     }
 }

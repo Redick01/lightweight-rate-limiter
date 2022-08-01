@@ -44,6 +44,12 @@ public class EtcdRefresher extends AbstractRefresher implements InitializingBean
         }
     }
 
+    /**
+     * load congi
+     * @param client {@link Client}
+     * @param key config key
+     * @param etcd {@link io.redick01.ratelimiter.common.config.RtProperties.Etcd}
+     */
     private void loadConfig(final Client client, final String key, final RtProperties.Etcd etcd) {
         client.getKVClient().get(ByteSequence.from(key, StandardCharsets.UTF_8))
                 .whenCompleteAsync((response, exception) -> {
@@ -66,8 +72,15 @@ public class EtcdRefresher extends AbstractRefresher implements InitializingBean
                 });
     }
 
+    /**
+     * init config watcher.
+     * @param client {@link Client}
+     * @param key config key
+     * @param etcd {@link io.redick01.ratelimiter.common.config.RtProperties.Etcd}
+     */
     private void initWatcher(final Client client, final String key, final RtProperties.Etcd etcd) {
-        client.getWatchClient().watch(ByteSequence.from(key, StandardCharsets.UTF_8), new EtcdListener(rtProperties, key, this));
+        client.getWatchClient().watch(ByteSequence.from(key, StandardCharsets.UTF_8),
+            new EtcdListener(rtProperties, key, this));
     }
 
     @Override

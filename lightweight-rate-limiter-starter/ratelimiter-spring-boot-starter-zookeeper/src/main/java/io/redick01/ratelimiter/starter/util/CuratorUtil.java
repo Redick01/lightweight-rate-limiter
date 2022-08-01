@@ -29,6 +29,10 @@ import java.util.concurrent.CountDownLatch;
 @Slf4j
 public final class CuratorUtil {
 
+    private static final int BASE_SLEEP_TIME_MS = 1000;
+
+    private static final int MAX_RETRY = 3;
+
     private static CuratorFramework curatorFramework;
 
     private static final CountDownLatch COUNT_DOWN_LATCH = new CountDownLatch(1);
@@ -44,7 +48,7 @@ public final class CuratorUtil {
         if (curatorFramework == null) {
             RtProperties.Zookeeper zookeeper = rtProperties.getZookeeper();
             curatorFramework = CuratorFrameworkFactory.newClient(zookeeper.getZkConnectStr(),
-                new ExponentialBackoffRetry(1000, 3));
+                new ExponentialBackoffRetry(BASE_SLEEP_TIME_MS, MAX_RETRY));
             final ConnectionStateListener connectionStateListener = (client, newState) -> {
                 if (newState == ConnectionState.CONNECTED) {
                     COUNT_DOWN_LATCH.countDown();
@@ -90,12 +94,21 @@ public final class CuratorUtil {
         } else if (ConfigFileTypeEnum.JSON.getValue().equalsIgnoreCase(rtProperties.getConfigType().trim())) {
             nodePath = ZKPaths.makePath(nodePath, rtProperties.getZookeeper().getConfigKey());
             String value = getVal(nodePath, curatorFramework);
-            result = ExtensionLoader.getExtensionLoader(ConfigParser.class).getJoin(rtProperties.getConfigType()).doParse(value);
+            result = ExtensionLoader
+                .getExtensionLoader(ConfigParser.class)
+                .getJoin(rtProperties.getConfigType())
+                .doParse(value);
         }
 
         return result;
     }
 
+  /**
+   * get properties type config info from zk.
+   * @param nodePath config node path
+   * @param curatorFramework {@link CuratorFramework}
+   * @return properties type config info
+   */
     private static Map<Object, Object> genPropertiesTypeMap(String nodePath, CuratorFramework curatorFramework) {
         try {
             final GetChildrenBuilder childrenBuilder = curatorFramework.getChildren();
@@ -114,6 +127,12 @@ public final class CuratorUtil {
         }
     }
 
+    /**
+     * get config value.
+     * @param path config path
+     * @param curatorFramework {@link CuratorFramework}
+     * @return config value
+     */
     private static String getVal(String path, CuratorFramework curatorFramework) {
         final GetDataBuilder data = curatorFramework.getData();
         String value = "";

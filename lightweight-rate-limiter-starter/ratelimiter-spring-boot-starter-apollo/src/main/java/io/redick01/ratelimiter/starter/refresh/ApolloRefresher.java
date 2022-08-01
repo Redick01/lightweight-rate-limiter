@@ -53,6 +53,11 @@ public class ApolloRefresher extends AbstractRefresher implements InitializingBe
         config.addChangeListener(this);
     }
 
+    /**
+     * enum config type.
+     * @param namespace apollo config namespace
+     * @return ConfigFileFormat
+     */
     private ConfigFileFormat configFileFormat(final String namespace) {
         ConfigFileFormat configFileFormat = ConfigFileFormat.Properties;
         if (namespace.contains(ConfigFileFormat.YAML.getValue())) {
