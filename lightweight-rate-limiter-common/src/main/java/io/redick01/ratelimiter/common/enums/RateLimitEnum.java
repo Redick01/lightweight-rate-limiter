@@ -5,16 +5,26 @@ package io.redick01.ratelimiter.common.enums;
  */
 public enum RateLimitEnum {
 
-    SLIDING_WINDOW("sliding_window_request_rate_limiter", "sliding_window_request_rate_limiter.lua"),
+    /**
+     * 限流算法枚举
+     */
 
-    LEAKY_BUCKET("request_leaky_rate_limiter", "request_leaky_rate_limiter.lua"),
+    SLIDING_WINDOW("sliding_window_rate_limiter", "sliding_window_request_rate_limiter.lua"),
+
+    LEAKY_BUCKET("leaky_bucket_rate_limiter", "request_leaky_rate_limiter.lua"),
 
     CONCURRENT("concurrent_request_rate_limiter", "concurrent_request_rate_limiter.lua"),
 
-    TOKEN_BUCKET("request_rate_limiter", "request_rate_limiter.lua");
+    TOKEN_BUCKET("token_bucket_rate_limiter", "request_rate_limiter.lua");
 
+    /**
+     * 算法名
+     */
     private final String keyName;
 
+    /**
+     * 脚本名
+     */
     private final String scriptName;
 
     RateLimitEnum(final String keyName, final String scriptName) {

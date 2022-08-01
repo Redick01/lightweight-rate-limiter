@@ -3,6 +3,7 @@ package io.redick01.ratelimiter.monitor.collector;
 import com.google.common.collect.Lists;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tag;
+import io.redick01.ratelimiter.common.enums.RateLimitEnum;
 import io.redick01.ratelimiter.monitor.RateLimiterMetrics;
 
 /**
@@ -45,7 +46,7 @@ public class MetricsCollector implements Collector {
      * @return left token count
      */
     private double tokensLeft(RateLimiterMetrics rateLimiterMetrics) {
-        if ("leaky_bucket_rate_limiter".equals(rateLimiterMetrics.getAlgorithmName())) {
+        if (RateLimitEnum.LEAKY_BUCKET.getKeyName().equals(rateLimiterMetrics.getAlgorithmName())) {
             return rateLimiterMetrics.getTokensLeft();
         }
         return rateLimiterMetrics.getCapacity() - rateLimiterMetrics.getTokensLeft();
