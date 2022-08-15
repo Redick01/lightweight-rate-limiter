@@ -20,8 +20,8 @@
         <module name="springboot-example" />
         <module name="nacos-example" />
         <module name="apollo-example" />
-        <module name="ratelimiter-spring-boot-starter-cloud-zookeeper" />
         <module name="cloud-zookeeper-example" />
+        <module name="ratelimiter-spring-boot-starter-cloud-zookeeper" />
         <module name="ratelimiter-spring-boot-starter-cloud-nacos" />
         <module name="ratelimiter-spring-boot-starter-nacos" />
         <module name="lightweight-rate-limiter-core" />
@@ -31,6 +31,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="lightweight-rate-limiter-spring-boot-starter-common" target="8" />
+      <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
