@@ -16,11 +16,11 @@ public final class MetricsRegistry {
     public static final Map<String, RateLimiterMetrics> METRICS_MAP = Maps.newConcurrentMap();
 
     /**
-     * refresh metrics container.
+     * refresh metrics registry
      * @param key key
      * @param realKey real key
-     * @param tokensLeft left token
-     * @param properties rate limiter config
+     * @param tokensLeft tokens left
+     * @param properties {@link RateLimiterConfigProperties}
      */
     public static void refresh(final String key, final String realKey, final List<Long> tokensLeft,
         final RateLimiterConfigProperties properties) {

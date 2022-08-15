@@ -46,8 +46,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
-      - name: Set Skip Env Var
-        uses: ./.github/actions/skip-ci
       - name: Cache Maven Repos
         if: env.SKIP_CI != 'true'
         uses: actions/cache@v2
