@@ -15,6 +15,13 @@ public final class MetricsRegistry {
 
     public static final Map<String, RateLimiterMetrics> METRICS_MAP = Maps.newConcurrentMap();
 
+    /**
+     * refresh metrics registry
+     * @param key key
+     * @param realKey real key
+     * @param tokensLeft tokens left
+     * @param properties {@link RateLimiterConfigProperties}
+     */
     public static void refresh(final String key, final String realKey, final List<Long> tokensLeft,
         final RateLimiterConfigProperties properties) {
         if (METRICS_MAP.containsKey(key)) {
