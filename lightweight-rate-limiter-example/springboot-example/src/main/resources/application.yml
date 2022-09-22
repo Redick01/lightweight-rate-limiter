@@ -16,3 +16,5 @@ spring:
         capacity: 1000
         rate: 200
         expressionType: spel
+  application:
+    name: springboot-test
