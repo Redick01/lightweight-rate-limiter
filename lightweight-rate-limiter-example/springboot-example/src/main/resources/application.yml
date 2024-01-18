@@ -3,7 +3,7 @@ server:
 spring:
   ratelimiter:
     redis-config:
-      url: 127.0.0.1
+      url: 127.0.0.1:6379
       database: 0
     rate-limiter-configs:
       - algorithmName: token_bucket_rate_limiter

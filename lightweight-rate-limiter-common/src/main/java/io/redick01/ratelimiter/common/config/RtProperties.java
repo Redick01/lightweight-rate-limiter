@@ -149,5 +149,7 @@ public class RtProperties {
          * shutdownTimeout
          */
         private int shutdownTimeout = 10000;
+
+        private String mode = "standalone";
     }
 }

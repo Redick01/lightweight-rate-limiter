@@ -56,28 +56,20 @@ public class RedisTemplateInitialization {
      * @return LettuceConnectionFactory
      */
     private LettuceConnectionFactory createLettuceConnectionFactory(final RtProperties.RedisConfig redisConfig) {
-        RedisConfiguration redisConfiguration = new RedisStandaloneConfiguration(redisConfig.getUrl());
-        ((RedisStandaloneConfiguration) redisConfiguration).setDatabase(redisConfig.getDatabase());
-        ((RedisStandaloneConfiguration) redisConfiguration).setPassword(redisConfig.getPassword());
-        //连接池配置
-        GenericObjectPoolConfig<?> genericObjectPoolConfig = new GenericObjectPoolConfig<>();
-        genericObjectPoolConfig.setMaxIdle(redisConfig.getMaxIdle());
-        genericObjectPoolConfig.setMinIdle(redisConfig.getMinIdle());
-        genericObjectPoolConfig.setMaxTotal(redisConfig.getMaxActive());
-        //redis客户端配置
-        LettucePoolingClientConfiguration.LettucePoolingClientConfigurationBuilder builder =
-            LettucePoolingClientConfiguration
-            .builder()
-            .commandTimeout(Duration.ofMillis(redisConfig.getCommandTimeout()));
-        builder.shutdownTimeout(Duration.ofMillis(redisConfig.getShutdownTimeout()));
-        builder.poolConfig(genericObjectPoolConfig);
-        LettuceClientConfiguration lettuceClientConfiguration = builder.build();
-        //根据配置和客户端配置创建连接
-        LettuceConnectionFactory lettuceConnectionFactory = new
-                LettuceConnectionFactory(redisConfiguration, lettuceClientConfiguration);
-        lettuceConnectionFactory.afterPropertiesSet();
-        return lettuceConnectionFactory;
+        String mode = redisConfig.getMode();
+        LettuceClientConfiguration lettuceClientConfiguration = getLettuceClientConfiguration(redisConfig);
+        if ("sentinel".equals(mode)) {
+            return new LettuceConnectionFactory(redisSentinelConfiguration(redisConfig));
+        } else if ("cluster".equals(mode)) {
+            return new LettuceConnectionFactory(redisClusterConfiguration(redisConfig));
+        }
+        return new LettuceConnectionFactory(redisStandaloneConfiguration(redisConfig));
     }
+
+    private LettuceClientConfiguration getLettuceClientConfiguration(final RtProperties.RedisConfig redisConfig) {
+        return LettucePoolingClientConfiguration.builder().poolConfig(getPoolConfig(redisConfig)).build();
+    }
+
 
     /**
      * get pool.
