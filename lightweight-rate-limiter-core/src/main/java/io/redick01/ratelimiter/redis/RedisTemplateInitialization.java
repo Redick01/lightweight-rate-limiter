@@ -37,7 +37,8 @@ public class RedisTemplateInitialization {
             //spring data redisTemplate
             if (Objects.isNull(Singleton.INST.get(RedisTemplate.class))) {
                 LettuceConnectionFactory lettuceConnectionFactory = createLettuceConnectionFactory(redisConfig);
-                RedisTemplate<String, Object> template = new RedisTemplate<>();
+	            lettuceConnectionFactory.afterPropertiesSet();
+	            RedisTemplate<String, Object> template = new RedisTemplate<>();
                 RedisSerializer<String> serializer = new StringRedisSerializer();
                 template.setConnectionFactory(lettuceConnectionFactory);
                 template.setKeySerializer(serializer);
