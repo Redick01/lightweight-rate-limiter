@@ -9,7 +9,8 @@ import org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoCo
 /**
  * @author Redick01
  */
-@SpringBootApplication(exclude = {RedisAutoConfiguration.class, RedisReactiveAutoConfiguration.class, RedisRepositoriesAutoConfiguration.class})
+@SpringBootApplication(exclude = {RedisAutoConfiguration.class, RedisReactiveAutoConfiguration.class,
+    RedisRepositoriesAutoConfiguration.class})
 public class Application {
 
     /**

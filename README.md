@@ -13,6 +13,11 @@
 
 - 限流情况可观测性支持
 
+## 环境要求
+
+- JDK 17+
+- Spring Boot 3.x（Spring Cloud 2022.0.x、Spring Cloud Alibaba 2022.0.0.0）
+
 ## 算法介绍
 
 ### 令牌桶算法
@@ -110,6 +115,8 @@ spring.ratelimiter.rate-limiter-configs[0].expressionType=spel
 ### Spring Boot应用接入
 
 可参考lightweight-rate-limiter-example/springboot-example工程
+
+Spring Boot 3接入可参考lightweight-rate-limiter-example/springboot3-example工程（含限流监控指标 `/actuator/prometheus` 演示）
 
 未使用分布式配置中心的springboot接入
 
