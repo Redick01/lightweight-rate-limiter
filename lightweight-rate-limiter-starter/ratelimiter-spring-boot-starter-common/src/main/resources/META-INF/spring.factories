@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.redick01.ratelimiter.configure.BaseAutoConfiguration

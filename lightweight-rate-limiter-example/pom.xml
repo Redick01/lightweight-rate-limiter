@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>springboot-example</module>
+        <module>springboot3-example</module>
         <module>common-example</module>
         <module>zookeeper-example</module>
         <module>cloud-zookeeper-example</module>
@@ -22,11 +23,6 @@
         <module>cloud-consul-example</module>
         <module>etcd-example</module>
     </modules>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
 
     <dependencies>
         <dependency>
