@@ -14,9 +14,9 @@
 
 ## 技术栈
 
-- 语言：Java 17（`maven.compiler.source/target = 17`，Spring Boot 3 最低要求）
+- 语言：Java 17（`maven.compiler.source/target = 17`，Spring Boot 4 最低要求）
 - 构建：Maven 多模块（根 `pom.xml`，packaging=pom；含 `mvnw`/`mvnw.cmd` wrapper，wrapper 配置在 `.mvn/wrapper/`）
-- 框架：Spring Boot 3.2.12、Spring Cloud 2022.0.5、Spring Cloud Alibaba 2022.0.0.0（根 pom 的 `dependencyManagement` 统一导入）
+- 框架：Spring Boot 4.1.0、Spring Cloud 2025.1.2、Spring Cloud Alibaba 2025.1.0.0（根 pom 的 `dependencyManagement` 统一导入）
 - 关键依赖：spring-data-redis + lettuce（Redis 客户端，版本由 spring-boot-dependencies 管理）、AspectJ（AOP 拦截）、Micrometer（指标）、Lombok、Guava、hutool-all、commons-lang3
 - 测试：JUnit 5（`spring-boot-starter-test`）、Mockito
 
@@ -39,7 +39,9 @@ lightweight-rate-limiter-starter   Spring Boot Starter 集合：
                                      META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
                                      注册 BaseAutoConfiguration；含 AOP 拦截器 RateLimiterInterceptor）
                                    - zookeeper / nacos / apollo / etcd（各自配置中心接入，实现配置拉取与监听刷新；
-                                     注意 zookeeper/etcd 的 EnvironmentPostProcessor 仍注册在 META-INF/spring.factories）
+                                     注意 zookeeper/etcd 的 EnvironmentPostProcessor 仍注册在 META-INF/spring.factories，
+                                     但键为 Boot 4 新接口 org.springframework.boot.EnvironmentPostProcessor，
+                                     旧的 org.springframework.boot.env.EnvironmentPostProcessor 将在 Boot 4.2 移除）
                                    - cloud-zookeeper / cloud-nacos / cloud-consul（Spring Cloud 方式接入）
 lightweight-rate-limiter-example   各接入方式的示例工程（springboot / springboot3 / zookeeper / nacos /
                                    apollo / etcd / cloud-zookeeper / cloud-nacos / cloud-consul / common），

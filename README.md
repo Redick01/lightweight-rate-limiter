@@ -16,7 +16,7 @@
 ## 环境要求
 
 - JDK 17+
-- Spring Boot 3.x（Spring Cloud 2022.0.x、Spring Cloud Alibaba 2022.0.0.0）
+- Spring Boot 4.x（Spring Cloud 2025.1.x、Spring Cloud Alibaba 2025.1.0.0）
 
 ## 算法介绍
 
@@ -116,7 +116,7 @@ spring.ratelimiter.rate-limiter-configs[0].expressionType=spel
 
 可参考lightweight-rate-limiter-example/springboot-example工程
 
-Spring Boot 3接入可参考lightweight-rate-limiter-example/springboot3-example工程（含限流监控指标 `/actuator/prometheus` 演示）
+Spring Boot 4接入可参考lightweight-rate-limiter-example/springboot3-example工程（含限流监控指标 `/actuator/prometheus` 演示）
 
 未使用分布式配置中心的springboot接入
 

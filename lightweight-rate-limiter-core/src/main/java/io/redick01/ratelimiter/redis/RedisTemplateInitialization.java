@@ -2,6 +2,7 @@ package io.redick01.ratelimiter.redis;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import io.lettuce.core.api.StatefulConnection;
 import io.redick01.ratelimiter.common.config.RtProperties;
 import io.redick01.ratelimiter.common.enums.Singleton;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
@@ -80,8 +81,9 @@ public class RedisTemplateInitialization {
      * @param redisConfig {@link io.redick01.ratelimiter.common.config.RtProperties.RedisConfig}
      * @return GenericObjectPoolConfig
      */
-    private GenericObjectPoolConfig<?> getPoolConfig(final RtProperties.RedisConfig redisConfig) {
-        GenericObjectPoolConfig<?> config = new GenericObjectPoolConfig<>();
+    private GenericObjectPoolConfig<StatefulConnection<?, ?>> getPoolConfig(
+        final RtProperties.RedisConfig redisConfig) {
+        GenericObjectPoolConfig<StatefulConnection<?, ?>> config = new GenericObjectPoolConfig<>();
         config.setMaxTotal(redisConfig.getMaxActive());
         config.setMaxIdle(redisConfig.getMaxIdle());
         config.setMinIdle(redisConfig.getMinIdle());

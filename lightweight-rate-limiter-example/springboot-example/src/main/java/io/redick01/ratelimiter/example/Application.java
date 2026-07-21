@@ -2,15 +2,15 @@ package io.redick01.ratelimiter.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration;
+import org.springframework.boot.data.redis.autoconfigure.DataRedisAutoConfiguration;
+import org.springframework.boot.data.redis.autoconfigure.DataRedisReactiveAutoConfiguration;
+import org.springframework.boot.data.redis.autoconfigure.DataRedisRepositoriesAutoConfiguration;
 
 /**
  * @author Redick01
  */
-@SpringBootApplication(exclude = {RedisAutoConfiguration.class, RedisReactiveAutoConfiguration.class,
-    RedisRepositoriesAutoConfiguration.class})
+@SpringBootApplication(exclude = {DataRedisAutoConfiguration.class, DataRedisReactiveAutoConfiguration.class,
+    DataRedisRepositoriesAutoConfiguration.class})
 public class Application {
 
     /**

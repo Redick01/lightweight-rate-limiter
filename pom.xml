@@ -18,10 +18,10 @@
 
     <properties>
         <aspect.version>1.9.21</aspect.version>
-        <spring-boot.version>3.2.12</spring-boot.version>
-        <spring-cloud.version>2022.0.5</spring-cloud.version>
-        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
-        <lombok.version>1.18.30</lombok.version>
+        <spring-boot.version>4.1.0</spring-boot.version>
+        <spring-cloud.version>2025.1.2</spring-cloud.version>
+        <spring-cloud-alibaba.version>2025.1.0.0</spring-cloud-alibaba.version>
+        <lombok.version>1.18.46</lombok.version>
         <apache.common.lang3.version>3.4</apache.common.lang3.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
