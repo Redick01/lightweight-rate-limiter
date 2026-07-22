@@ -1,4 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.redick01.ratelimiter.starter.configure.ZookeeperAutoConfiguration
-org.springframework.boot.env.EnvironmentPostProcessor=\
+org.springframework.boot.EnvironmentPostProcessor=\
   io.redick01.ratelimiter.starter.configure.ZkConfigEnvironmentProcessor

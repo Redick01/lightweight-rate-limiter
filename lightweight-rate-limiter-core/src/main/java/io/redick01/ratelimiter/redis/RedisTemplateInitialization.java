@@ -2,11 +2,11 @@ package io.redick01.ratelimiter.redis;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import io.lettuce.core.api.StatefulConnection;
 import io.redick01.ratelimiter.common.config.RtProperties;
 import io.redick01.ratelimiter.common.enums.Singleton;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
-import org.springframework.data.redis.connection.RedisConfiguration;
 import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
@@ -20,7 +20,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -67,6 +66,11 @@ public class RedisTemplateInitialization {
         return new LettuceConnectionFactory(redisStandaloneConfiguration(redisConfig));
     }
 
+    /**
+     * get lettuce client configuration.
+     * @param redisConfig {@link io.redick01.ratelimiter.common.config.RtProperties.RedisConfig}
+     * @return LettuceClientConfiguration
+     */
     private LettuceClientConfiguration getLettuceClientConfiguration(final RtProperties.RedisConfig redisConfig) {
         return LettucePoolingClientConfiguration.builder().poolConfig(getPoolConfig(redisConfig)).build();
     }
@@ -77,8 +81,9 @@ public class RedisTemplateInitialization {
      * @param redisConfig {@link io.redick01.ratelimiter.common.config.RtProperties.RedisConfig}
      * @return GenericObjectPoolConfig
      */
-    private GenericObjectPoolConfig<?> getPoolConfig(final RtProperties.RedisConfig redisConfig) {
-        GenericObjectPoolConfig<?> config = new GenericObjectPoolConfig<>();
+    private GenericObjectPoolConfig<StatefulConnection<?, ?>> getPoolConfig(
+        final RtProperties.RedisConfig redisConfig) {
+        GenericObjectPoolConfig<StatefulConnection<?, ?>> config = new GenericObjectPoolConfig<>();
         config.setMaxTotal(redisConfig.getMaxActive());
         config.setMaxIdle(redisConfig.getMaxIdle());
         config.setMinIdle(redisConfig.getMinIdle());
