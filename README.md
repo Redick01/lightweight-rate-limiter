@@ -116,7 +116,9 @@ spring.ratelimiter.rate-limiter-configs[0].expressionType=spel
 
 可参考lightweight-rate-limiter-example/springboot-example工程
 
-Spring Boot 4接入可参考lightweight-rate-limiter-example/springboot3-example工程（含限流监控指标 `/actuator/prometheus` 演示）
+含限流监控指标 `/actuator/prometheus` 演示的可参考lightweight-rate-limiter-example/springboot3-example工程
+
+（示例工程均基于 Spring Boot 4.1，最低 JDK 17）
 
 未使用分布式配置中心的springboot接入
 
@@ -509,9 +511,8 @@ spring:
   <dependency>
       <groupId>io.micrometer</groupId>
       <artifactId>micrometer-registry-prometheus</artifactId>
-      <version>1.6.4</version>
   </dependency>
-  
+
   <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
